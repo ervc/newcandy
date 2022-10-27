@@ -24,11 +24,6 @@ def do_chemistry(
         output directory
     abs_err, rel_err
         absolute and relative errors for chemistry integration
-
-    Returns
-    -------
-    list[int]
-        returns list of integers returned by chem_helper
     """
     args = [(col, j, f_chm, chemtime, abs_err, rel_err, outdirr) 
              for j in range(col.ncells)]
@@ -57,8 +52,8 @@ def chem_helper(args: tuple) -> dict:
     cell = col.cells[j]
     cell.write_chem_inputs(chemtime, abs_err, rel_err, f_net=f_chm, 
         f_input=f'{dirr}/input.ini', f_source=f'{dirr}/source.mdl')
-    print('working on cell ',j)
+    # print('working on cell ',j)
     subprocess.run(['astrochem','-q','input.ini'],cwd=dirr)
-    print('done with cell ',j)
+    # print('done with cell ',j)
     d = get_final_abuns(f'{dirr}/astrochem_output.h5','all')
     return d

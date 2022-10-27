@@ -99,7 +99,6 @@ def main(infile):
 
     ### main loop
     if not STATIC:
-        print('dynamic run!')
         nout = 0
         time = model_dict['ti']
         tf = model_dict['tf']
@@ -107,7 +106,6 @@ def main(infile):
             tout = touts[nout] # next time to output results for
             print('next tout: ',tout)
             chemdt = min(chemtime,tout-time)
-            print(f'{chemdt = }')
 
             #### DO CHEMISTRY ####
             sols = cd.chemistry.do_chemistry(col, chemdt, f_chm, outputdirr)
@@ -116,7 +114,6 @@ def main(infile):
             subtime = 0
             while (subtime < chemdt):
                 diffdt = min(difftime,chemdt-subtime)
-                print(f'{diffdt = }')
 
                 cd.diffusion.do_diffusion(col,diffdt)
                 if GROWTH and time >= phys_dict['growth_delay_time']:
@@ -129,6 +126,7 @@ def main(infile):
 
             time += chemdt
             if time >= tout:
+                print(f'time: {time}')
                 cd.candyio.save_outputs(col,nout,outputdirr)
                 if GROWTH:
                     cd.candyio.save_pebbles(col,pebcomp,
@@ -140,7 +138,7 @@ def main(infile):
             model_dict['tf'],True)
     else:
         print('static run')
-        sols = cd.chemistry.do_chemistry(col,chemtime,f_chm,outputdirr)
+        cd.chemistry.do_chemistry(col,chemtime,f_chm,outputdirr)
         cd.candyio.gather_static_abuns(col,outputdirr,outfile,
             model_dict['tf'],True)
 
