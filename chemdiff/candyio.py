@@ -83,7 +83,7 @@ def read_infile(fin):
     config.read(fin)
     model,phys,abuns = get_defaults()
     for key in config['model']:
-        if key in ['chmfile','pebfile','touts','outputdir','outfile']:
+        if key in ['chmfile','pebfile','outputdir','outfile']:
             model[key] = config['model'][key]
         elif key in ['touts']:
             model[key] = parse_list(config['model'][key])
