@@ -1,0 +1,49 @@
+! Reaction types:
+!
+! type 0   : H2 formation on grains
+! type 100 : HD formation on grains
+!
+! type 13  : Standard dissociation
+! type 14  : H2 dissociation with shielding
+! type 114 : HD dissociation with shielding
+! type 16  : CO dissociation with shielding
+! type 17  : C-17-O dissociation with shielding
+! type 18  : C-18-O dissociation with shielding
+
+H    + H   ->   H2      3.000e-18   5.000e-01   0.000e+00   0   1
+H    + D   ->   HD      3.000e-18   5.000e-01   0.000e+00   100   2
+
+H2    + uv-photon   ->   H    + H      5.180e-11   1.000e+00   3.020e+00   14   5
+HD    + uv-photon   ->   H    + D      1.500e-09   1.000e+00   0.000e+00   114   9229
+HD    + uv-photon   ->   H    + D      1.036e-10   1.000e+00   3.020e+00   13   14893
+
+CO    + uv-photon   ->   C    + O      2.600e-10   1.000e+00   3.240e+00   16   8596
+C-17-O    + uv-photon   ->   C    + -17-O      2.600e-10   1.000e+00   3.240e+00   17   8597
+C-18-O    + uv-photon   ->   C    + -18-O      2.600e-10   1.000e+00   3.240e+00   18   8598
+
+! REACTION 3X: Photodissociation
+! k = a * chi * exp(-c * av) * shielding
+!
+! - type 30 : Standard Photodissociation (Doty 13)
+!
+! - type 31 : H2 dissociation including self-shielding (Doty/S 84, Doty/V 11)
+!
+! - type 32 : CO dissociation including self-shielding (Doty/S 85, Doty/V 12)
+!
+! - type 33 : C ionization including self-shielding (not implemented in Doty)
+!
+! - type 34 : 13CO dissociation including self-shielding (Doty/S 85, Doty/V 12)
+!
+! - type 35 : C18O/13C18O dissociation including self-shielding (Doty/S 85, Doty/V 12)
+!
+! - type 36 : C17O/13C17O dissociation including self-shielding (Doty/S 85, Doty/V 12)
+!
+! - type 37 : H2 dissociation including self-shielding (Doty/S 84, Doty/V 11)
+
+H2 + PHOTON -> H + H       8915  31   5.180e-11    1.000e+00    3.020e+00    0.000e+00    4.100e+04  H2.PD
+HD + PHOTON -> H + D       9762  37   1.500e-09    1.000e+00    0.000e+00    0.000e+00    4.100e+04  H2.PD
+HD + PHOTON -> H + D      15605  31   1.036e-10    1.000e+00    3.020e+00    0.000e+00    4.100e+04  H2.PD
+
+CO + PHOTON -> C + O         8916  32   2.600e-10    1.000e+00    3.240e+00    0.000e+00    4.100e+04  CO_NEW.PD
+C17O + PHOTON -> C + 17O     8917  36   2.600e-10    1.000e+00    3.240e+00    0.000e+00    4.100e+04  CO_NEW.PD
+C18O + PHOTON -> C + 18O     8918  35   2.600e-10    1.000e+00    3.240e+00    0.000e+00    4.100e+04  CO_NEW.PD

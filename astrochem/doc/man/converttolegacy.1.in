@@ -1,0 +1,72 @@
+.\" -*- nroff -*-
+.\"
+.\"  plabun.1 - Manual page for plabun
+.\"
+.\"  Copyright (c) 2006-2019 Sebastien Maret
+.\" 
+.\"  This file is part of Astrochem.
+.\"
+.\"  Astrochem is free software: you can redistribute it and/or modify
+.\"  it under the terms of the GNU General Public License as published
+.\"  by the Free Software Foundation, either version 3 of the License,
+.\"  or (at your option) any later version.
+.\"
+.\"  Astrochem is distributed in the hope that it will be useful, but
+.\"  WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\"  General Public License for more details.
+.\" 
+.\"  You should have received a copy of the GNU General Public License
+.\"  along with Astrochem.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.Dd @RELEASE_DATE@
+.Os
+.Dt CONVERTTOLEGACY 1
+.Sh NAME
+.Nm converttolegacy
+.Nd convert an specie from hdf5 astrochem output file to old legacy output format .abun and .rout
+.Sh SYNOPSIS
+.Nm
+.Op Ar option
+.Ar file.h5
+.Ar specie/ALL
+.\"
+.\" Description
+.\"
+.Sh DESCRIPTION
+.Nm
+is a 
+.Xr python 1
+script to convert a specie from hdf5
+.Xr astrochem 1
+output file to old legacy output format .abun and .rout
+.\"
+.\" Options
+.\"
+.Sh OPTIONS
+.Bl -tag -width flag
+.It Cm -h, --help
+Display help text.
+.It Cm -V, --version
+Display converttolegacy version information.
+.El
+
+.\"
+.\" Authors, copyright, and see also
+.\"
+.Sh AUTHOR
+Written by Sebastien Maret.
+.Sh "REPORTING BUGS"
+Report bugs to
+.Aq @PACKAGE_BUGREPORT@ .
+.Sh COPYRIGHT
+Copyright \(co 2006-2019 Sebastien Maret
+.Pp
+This is free software. You may redistribute copies of it under the
+terms of the GNU General Public License. There is NO WARRANTY, to the
+extent permitted by law.
+.Sh "SEE ALSO"
+.Xr astrochem 1 ","
+.Xr plroute 1 ","
+.Xr plabun 1 ","
+.Xr chmconvert 1

@@ -1,0 +1,79 @@
+.\" -*- nroff -*-
+.\"
+.\"  chmconvert.1 - Manual page for chmconvert
+.\"
+.\"  Copyright (c) 2006-2019 Sebastien Maret
+.\" 
+.\"  This file is part of Astrochem.
+.\"
+.\"  Astrochem is free software: you can redistribute it and/or modify
+.\"  it under the terms of the GNU General Public License as published
+.\"  by the Free Software Foundation, either version 3 of the License,
+.\"  or (at your option) any later version.
+.\"
+.\"  Astrochem is distributed in the hope that it will be useful, but
+.\"  WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\"  General Public License for more details.
+.\" 
+.\"  You should have received a copy of the GNU General Public License
+.\"  along with Astrochem.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.Dd @RELEASE_DATE@
+.Os
+.Dt CHMCONVERT 1
+.Sh NAME
+.Nm chmconvert
+.Nd convert chemical networks into .chm format
+.Sh SYNOPSIS
+.Nm
+.Op Ar option
+.Op Ar file
+.\"
+.\" Description
+.\"
+.Sh DESCRIPTION
+.Nm
+is a tool to convert chemical network files from different formats to
+.Xr astrochem 1 
+native format
+.Em .chm .
+The format of the input file is determined
+from the extension of the input file. Supported formats are
+.Em .osu
+(Ohio State University astrochemistry database) and
+.Em .kida
+(KInetic Database for Astrochemistry).
+.\"
+.\" Options
+.\"
+.Sh OPTIONS
+.Bl -tag -width flag
+.It Cm -h, --help
+Display help text.
+.It Cm -V, --version
+Display astrochem version information.
+.It Cm -o Ar file , Cm --output Ar file
+Write the converted network in
+.Ar file "."
+Default is the standard output.
+.El
+.\"
+.\" Authors, copyright, and see also
+.\"
+.Sh AUTHOR
+Written by Sebastien Maret.
+.Sh "REPORTING BUGS"
+Report bugs to
+.Aq @PACKAGE_BUGREPORT@ .
+.Sh COPYRIGHT
+Copyright \(co 2006-2019 Sebastien Maret
+.Pp
+This is free software. You may redistribute copies of it under the
+terms of the GNU General Public License. There is NO WARRANTY, to the
+extent permitted by law.
+.Sh "SEE ALSO"
+.Xr astrochem 1 ","
+.Xr plabun 1 ","
+.Xr converttolegacy 1 ","
+.Xr plroute 1

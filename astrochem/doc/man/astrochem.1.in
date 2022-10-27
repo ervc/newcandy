@@ -1,0 +1,74 @@
+.\" -*- nroff -*-
+.\"
+.\"  astrochem.1 - Man page for Astrochem
+.\"
+.\"  Copyright (c) 2006-2019 Sebastien Maret
+.\" 
+.\"  This file is part of Astrochem.
+.\"
+.\"  Astrochem is free software: you can redistribute it and/or modify
+.\"  it under the terms of the GNU General Public License as published
+.\"  by the Free Software Foundation, either version 3 of the License,
+.\"  or (at your option) any later version.
+.\"
+.\"  Astrochem is distributed in the hope that it will be useful, but
+.\"  WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\"  General Public License for more details.
+.\" 
+.\"  You should have received a copy of the GNU General Public License
+.\"  along with Astrochem.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.Dd @RELEASE_DATE@
+.Os
+.Dt ASTROCHEM 1
+.Sh NAME
+.Nm astrochem
+.Nd compute interstellar medium abundances
+.Sh SYNOPSIS
+.Nm
+.Op Ar option
+.Op Ar file
+.\"
+.\" Description
+.\"
+.Sh DESCRIPTION
+.Nm
+is a code to compute the abundances of chemical species in the
+interstellar medium. It reads a chemical network file, create a system
+of ordinary differential equations (ODE), and solve it.
+.\"
+.\" Options
+.\"
+.Sh OPTIONS
+.Bl -tag -width flag
+.It Cm -h, --help
+Display help text.
+.It Cm -V, --version
+Display astrochem version information.
+.It Cm -v, --verbose
+Causes astrochem to be more verbose. This option display detailled
+information about the computations that are being done.
+.It Cm -q, --quiet
+Causes astrochem to be completely silent. Only error messages are
+displayed.
+.El
+.\"
+.\" Authors, bug reports, copyright, and other information
+.\"
+.Sh AUTHOR
+Written by Sebastien Maret.
+.Sh "REPORTING BUGS"
+Report bugs to
+.Aq @PACKAGE_BUGREPORT@ .
+.Sh COPYRIGHT
+Copyright \(co 2006-2019 Sebastien Maret
+.Pp
+This is free software. You may redistribute copies of it under the
+terms of the GNU General Public License. There is NO WARRANTY, to the
+extent permitted by law.
+.Sh "SEE ALSO"
+.Xr plabun 1 ","
+.Xr plroute 1 ","
+.Xr converttolegacy 1 ","
+.Xr chmconvert 1

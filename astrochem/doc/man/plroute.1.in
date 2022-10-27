@@ -1,0 +1,86 @@
+.\" -*- nroff -*-
+.\"
+.\"  plroute.1 - Manual page for plroute
+.\"
+.\"  Copyright (c) 2006-2019 Sebastien Maret
+.\" 
+.\"  This file is part of Astrochem.
+.\"
+.\"  Astrochem is free software: you can redistribute it and/or modify
+.\"  it under the terms of the GNU General Public License as published
+.\"  by the Free Software Foundation, either version 3 of the License,
+.\"  or (at your option) any later version.
+.\"
+.\"  Astrochem is distributed in the hope that it will be useful, but
+.\"  WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\"  General Public License for more details.
+.\" 
+.\"  You should have received a copy of the GNU General Public License
+.\"  along with Astrochem.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.Dd @RELEASE_DATE@
+.Os
+.Dt PLROUTE 1
+.Sh NAME
+.Nm plroute
+.Nd plot the destruction/formation routes computed by astrochem for a given specie, using hdf5 output of astrochem
+.Sh SYNOPSIS
+.Nm
+.Op Ar option
+.Ar file.h5
+.Ar specie
+.
+.\"
+.\" Description
+.\"
+.Sh DESCRIPTION
+.Nm
+is a
+.Xr python 1
+script to plot the main destruction/formation routes computed by
+.Xr astrochem 1
+vs. time.
+.\"
+.\" Options
+.\"
+.Sh OPTIONS
+.Bl -tag -width flag
+.It Cm -h, --help
+Display help text.
+.It Cm -V, --version
+Display plabun version information.
+.It Cm -o Ar file , Cm --output= Ar file
+Create a PostScript file.
+.It Cm -s Ar cell-number , Cm --cell= Ar cell-number
+Set the cell number. Default is 0.
+.It Cm -x Ar xmin,xmax , Cm --xrange= Ar xmin,xmax
+Set the x axis range.
+.It Cm -y Ar ymin,ymax , Cm --yrange= Ar ymin,ymax
+Set the y axis range.
+.It Cm -p, --percent
+Print the relative contribution of each route.
+.It Cm -l, --legacy
+Read files in the legacy format (.rout)
+.It Cm -m Ar file , Cm --chmfile= Ar file
+Specify the chemical network file. Deprecated, used only in legacy mode.
+.El
+.\"
+.\" Authors, copyright, and see also
+.\"
+.Sh AUTHOR
+Written by Sebastien Maret.
+.Sh "REPORTING BUGS"
+Report bugs to
+.Aq @PACKAGE_BUGREPORT@ .
+.Sh COPYRIGHT
+Copyright \(co 2006-2019 Sebastien Maret
+.Pp
+This is free software. You may redistribute copies of it under the
+terms of the GNU General Public License. There is NO WARRANTY, to the
+extent permitted by law.
+.Sh "SEE ALSO"
+.Xr astrochem 1 ","
+.Xr plabun 1 ","
+.Xr converttolegacy 1 ","
+.Xr chmconvert 1
