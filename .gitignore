@@ -1,2 +1,7 @@
+# pycaches
 __pycache__/
 chemdiff/__pycache__/
+
+# testing files
+cdtest.ini
+testoutput/
