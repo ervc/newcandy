@@ -86,7 +86,7 @@ This sets the height below which pebbles will grow to 0, shutting off any pebble
 
 ### Growth runs
 
-A growth run contains diffusion and pebble growth (and is the default setup for CANDY). The `growth_height` parameter sets the height (in disk scaleheight) below which pebbles will grow. Any [^1] `growth_height` > 0 will result in pebble growth. The resulting pebble composition is saved in the `pebfile` (default: `pebcomp.out`) in the `outputdir` directory.
+A growth run contains diffusion and pebble growth (and is the default setup for CANDY). The `growth_height` parameter sets the height (in disk scaleheight) below which pebbles will grow. Any[^1] `growth_height` > 0 will result in pebble growth. The resulting pebble composition is saved in the `pebfile` (default: `pebcomp.out`) in the `outputdir` directory.
 
 Pebble compositions are stored normalized to the column density of hydrogen, with units of cm$^{-2}$.
 
