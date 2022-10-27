@@ -70,10 +70,10 @@ def main(infile):
         dirr = f'{outputdirr}/z{j:0>2}'
         if not os.path.exists(dirr):
             subprocess.run(['mkdir',dirr])
-            # move the data_coselfs_iso.dat file into directory where
-            # astrochem will be run
-            subprocess.run(['cp','data_coselfs_iso.dat',
-                f'{dirr}/data_coselfs_iso.dat'])
+        # move the data_coselfs_iso.dat file into directory where
+        # astrochem will be run
+        subprocess.run(['cp','data_coselfs_iso.dat',
+            f'{dirr}/data_coselfs_iso.dat'])
         z = col.dz*(j+0.5)
         rho = cd.disk.get_density(r,z)
         temp = cd.disk.get_temperature(r,z)
