@@ -2,9 +2,7 @@
 
 Chemistry ANd DYnamics in protoplanetary disks
 
-## Table of Contents
 - [Candy](#candy)
-  - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [Installation and Requirements](#installation-and-requirements)
   - [Quickstart](#quickstart)
