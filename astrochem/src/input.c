@@ -638,7 +638,7 @@ read_source (const char *source_file, mdl_t * source_mdl,
                            __FILE__, __LINE__, source_file);
                   return EXIT_FAILURE;
                 }
-              fprintf(stdout, "read in NCO, NH2, NHD are %e %e %e\n", NCO,NH2,NHD);
+              // fprintf(stdout, "read in NCO, NH2, NHD are %e %e %e\n", NCO,NH2,NHD);
               source_mdl->cell[n_cell].av[0] = av;
               source_mdl->cell[n_cell].nh[0] = nh;
               source_mdl->cell[n_cell].tgas[0] = tgas;
