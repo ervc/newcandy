@@ -58,7 +58,7 @@ To run candy, simply run
 
     python candy.py growth_example.ini
 
-from the command line, where input.ini is the input file you wish to use.
+from the command line, where growth_example.ini is the input file you wish to use.
 
 ### Static runs
 
