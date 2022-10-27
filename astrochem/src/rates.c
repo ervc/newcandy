@@ -269,7 +269,7 @@ rate (double alpha, double beta, double gamm, int reaction_type,
         s_eta = stick*eta;
 
         k = s_eta*alpha*pow(tgas,beta)*nh*dg100;
-        fprintf(stdout, "k H2 formation %e\n", k);
+        // fprintf(stdout, "k H2 formation %e\n", k);
         break;
       }
 
@@ -291,7 +291,7 @@ rate (double alpha, double beta, double gamm, int reaction_type,
         s_eta = stick*eta;
 
         k = s_eta*alpha*pow(tgas,beta)*nh*dg100;
-        fprintf(stdout, "k HD formation %e\n", k);
+        // fprintf(stdout, "k HD formation %e\n", k);
         break;
       }
 
@@ -356,8 +356,8 @@ rate (double alpha, double beta, double gamm, int reaction_type,
         theta = 1.;
 
         k = alpha * chi * exp(-gamm * av) * theta;
-        fprintf(stdout, "NHD is %e\n", NHD);
-        fprintf(stdout, "k HD -> H+D = %e\n", k);
+        // fprintf(stdout, "NHD is %e\n", NHD);
+        // fprintf(stdout, "k HD -> H+D = %e\n", k);
         break;
       }
 
