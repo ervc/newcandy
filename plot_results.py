@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 import chemdiff as cd
 
-cdfile = 'diff_example/output_abuns.npz'
-pngfile = 'diff_example/results.png'
+cdfile = 'growth_example/output_abuns.npz'
+pngfile = 'growth_example/results.png'
 
 
 cdout = np.load(cdfile)

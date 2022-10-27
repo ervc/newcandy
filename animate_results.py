@@ -4,8 +4,8 @@ from matplotlib.animation import FuncAnimation
 
 import chemdiff as cd
 
-candyfile = 'static_example/output_abuns.npz'
-anifile = 'static_example/animation.gif'
+candyfile = 'growth_example/output_abuns.npz'
+anifile = 'growth_example/animation.gif'
 
 cdout = np.load(candyfile)
 
