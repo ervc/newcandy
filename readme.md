@@ -56,7 +56,7 @@ Because candy.py is run from the parent directory, there is no need to adjust yo
 
 To run candy, simply run 
 
-    python candy.py growth_example.ini
+    python candy.py examples/growth_example/growth_example.ini
 
 from the command line, where growth_example.ini is the input file you wish to use.
 
@@ -194,7 +194,7 @@ Some reaction rate calculations are also adjusted to be more similar to the DALI
 
 The python wrapper for for running astroCHEM with DIFFusion. This is entirely written in python, and successively calls `astrochem` in parallel at different vertical locations ranging from disk midplane to 5 scale heights. Input parameters are readin from custom `.ini` files -- examples have been provided for growth, static, and diffusion setups.
 
-The chemdiff directory contains the all of the python modules. Of particular interest:
+The chemdiff directory contains all of the python modules. Of particular interest:
 - `chemistry.py`
   - Calls astrochem in parallel for each of the cells.
 - `diffusion.py`
