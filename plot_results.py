@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import chemdiff as cd
 
 # get the names of the CANDY output file and the image we want to make
-cdfile = 'growth_example/output_abuns.npz'
-pngfile = 'growth_example/results.png'
+cdfile = 'examples/growth_example/output_abuns.npz'
+pngfile = 'examples/growth_example/results.png'
 
 # load the output file into NpzFile class
 cdout = np.load(cdfile)

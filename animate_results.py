@@ -7,9 +7,9 @@ from matplotlib.animation import FuncAnimation
 import chemdiff as cd
 
 # candy output file
-candyfile = 'growth_example/output_abuns.npz'
+candyfile = 'examples/growth_example/output_abuns.npz'
 # the name of the gif we will be making
-anifile = 'growth_example/animation.gif'
+anifile = 'examples/growth_example/animation.gif'
 
 # load candy results
 cdout = np.load(candyfile)
