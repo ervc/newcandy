@@ -5,3 +5,6 @@ chemdiff/__pycache__/
 # testing files
 cdtest.ini
 testoutput/
+
+#mac generated files
+.DS_Store
