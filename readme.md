@@ -13,6 +13,9 @@ Chemistry ANd DYnamics in protoplanetary disks
     - [Model](#model)
     - [Phys](#phys)
     - [Abundances](#abundances)
+  - [Output files](#output-files)
+    - [outfile](#outfile)
+    - [Pebble composition](#pebble-composition)
   - [Astrochem Changes](#astrochem-changes)
   - [chemdiff](#chemdiff)
 
@@ -162,6 +165,75 @@ H$_2$S | 1.91(-8)
 CO$_2$ | 5.00(-5)	
 HCN | 3.50(-7) 
 Grains | 2.20(-12)
+
+## Output files
+
+As candy runs, it will create subdirectories named `z00/`, `z01/`, etc... for each cell in the Column. Within each of these folders will be `astrochem_output` HDF5 files for each output time from the simulation. The default behavior is for these many files to be deleted at the end of the CANDY run, and all of the outputs are gathered into one `.npz` file. CANDY also creates two plain text files: the pebble composition (default `pebcomp.out`) and output times, `times.out`.
+
+### outfile
+
+The main output file, outfile in the [model parameters](#model), is saved as a zipped, uncompressed `.npz` file. This file can be opened in Python, by importing the `numpy` package and using the `np.load()` function (see documentation [here](https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load)). For the default outfile name of 'output_abuns', the file could be loaded as follows:
+
+```python
+import numpy as np
+cdout = np.load('output_abuns.npz')
+```
+
+This returns an NpzFile object, containing the saved numpy arrays that are output from CANDY. The available array names can be found by accessing the `files` property
+
+```python
+cdout.files
+# out: ['times', 'species', 'abundances', 'heights', 'density', 'extinctions']
+```
+
+These arrays can be indexed similar to a python dictionary, using square brackets. For example, 'times' contains a list of output times.
+
+```python
+times = cdout['times']
+times
+# out: array([  100.,   200.,   500.,  1000.,  2000.,  5000., 10000.])
+```
+
+The different arrays have different shapes depending on how they vary. For an output with `nt` times, `nz` cells, and `nspec` species, the outputs are as follows:
+
+- times: *1D array, shape (nt,)*
+  - Output times in years.
+- species: *1D array, shape (nspec,)*
+  - List of all species considered in the network.
+- abundances: *3D array, shape (nt, nz, nspec)*
+  - Abundances relative to hydrogen of all species, at all heights and all times.
+- heights: *1D array, shape (nz,)*
+  - The elevation above the midplane at the center of each cell in cm.
+- density: *1D array, shape (nz,)*
+  - The number density of hydrogen in a given cell in cm$^{-3}$.
+- extinctions: *2D array, shape (nt, nz)*
+  - The visual extinction, $A_v$ of a given cell at a given time. Convert to the UV optical depth using the relation $A_v = \tau_{UV}/3.02$
+  
+
+See below for a (quick) example of how to read abundances, this is also demonstrated in an example in the `plot_results.py` plotting script.
+
+```python
+import numpy as np
+# load data
+cdout = np.load('examples/growth_example/output_abuns.npz')
+times = cdout['times']
+specs = cdout['species']
+abuns = cdout['abundances']
+elevs = cdout['heights']
+# Say we want to find the midplane abundance of H2O ice after 1000 years of evolution
+# find the correct indices using np.where() function
+t = np.where(times == 1000)[0][0]       # time = 1000 years
+j = 0                                   # midplane, cell index = 0
+k = np.where(specs == 'grainH2O')[0][0] # species index of water ice
+abuns[t,j,k]
+# out: 1.6693156020606896e-05
+```
+
+### Pebble composition
+
+The pebble composition file is saved as plain text, default name `pebcomp.out`. This file keeps track of the ice species that are sequestered away from the active chemistry on the mantle of growing pebbles. The abundances of each ice species are normalized to the column density of hydrogen, rather than the number density of hydrogen. This is because the entire column will only have *one* reservoir of pebbles. The routine for removing ice is in the `grow_grains()` function in the `chemdiff/diffusion.py` module, and this is written to the pebcomp.out file in the `save_pebbles()` function in `chemdiff/candyio.py`.
+
+The pebble composition file has three columns, the first is the time of the output in years, second the name of the ice species, and the third the normalized abundance.
 
 ## Astrochem Changes
 
