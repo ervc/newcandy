@@ -1,6 +1,8 @@
 # pycaches
 __pycache__/
 chemdiff/__pycache__/
+.ipynb_checkpoints/
+*.ipynb
 
 # testing files
 cdtest.ini
