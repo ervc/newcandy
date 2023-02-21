@@ -2,22 +2,21 @@
 
 Chemistry ANd DYnamics in protoplanetary disks
 
-- [Candy](#candy)
-  - [About](#about)
-  - [Installation and Requirements](#installation-and-requirements)
-  - [Quickstart](#quickstart)
-    - [Static runs](#static-runs)
-    - [Diffusive runs](#diffusive-runs)
-    - [Growth runs](#growth-runs)
-  - [Input parameters](#input-parameters)
-    - [Model](#model)
-    - [Phys](#phys)
-    - [Abundances](#abundances)
-  - [Output files](#output-files)
-    - [outfile](#outfile)
-    - [Pebble composition](#pebble-composition)
-  - [Astrochem Changes](#astrochem-changes)
-  - [chemdiff](#chemdiff)
+- [About](#about)
+- [Installation and Requirements](#installation-and-requirements)
+- [Quickstart](#quickstart)
+  - [Static runs](#static-runs)
+  - [Diffusive runs](#diffusive-runs)
+  - [Growth runs](#growth-runs)
+- [Input parameters](#input-parameters)
+  - [Model](#model)
+  - [Phys](#phys)
+  - [Abundances](#abundances)
+- [Output files](#output-files)
+  - [outfile](#outfile)
+  - [Pebble composition](#pebble-composition)
+- [Astrochem Changes](#astrochem-changes)
+- [chemdiff](#chemdiff)
 
 ## About
 
