@@ -21,15 +21,14 @@ Chemistry ANd DYnamics in protoplanetary disks
 
 ## About
 
-CANDY is a protoplanetary disk model for determining the time-dependent
+CANDY (Chemistry ANd DYnamics) is a protoplanetary disk model for determining the time-dependent
 chemistry and a 1D vertical slice of a dynamic disk. CANDY includes
 chemistry, vertical diffusion, pebble growth, and ice sequestration.
 Details of the model are given in [Van Clepper et al. 2022](https://iopscience.iop.org/article/10.3847/1538-4357/ac511b).
 
 CANDY contains two submodules, a modified astrochem ([Maret & Bergin
 2015](http://ascl.net/1507.010)) directory and the chemdiff directory, where the python wrapper is
-contained.
-
+contained. CANDY works by iteratively switching between chemistry and dynamics for a vertical Column at a given location in a protoplanetary disk. The column is split into adjacent cells, within which the chemical and physical properties are assumed to be constant. Each is allowed to evolve chemically independently for some period of time before gas and ice species diffuse vertically through the disk between adjacent cells. Meanwhile, small grains grow into larger pebbles, removing ice species from the active chemistry.
 
 
 ## Installation and Requirements
@@ -194,7 +193,7 @@ times
 # out: array([  100.,   200.,   500.,  1000.,  2000.,  5000., 10000.])
 ```
 
-The different arrays have different shapes depending on how they vary. For an output with `nt` times, `nz` cells, and `nspec` species, the outputs are as follows:
+The different arrays have different shapes dependant on which dimension they vary. For an output with `nt` times, `nz` cells, and `nspec` species, the outputs are as follows:
 
 - times: *1D array, shape (nt,)*
   - Output times in years.
