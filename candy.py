@@ -22,7 +22,10 @@ def main(infile):
     ### setup the output files
     cwd = os.getcwd()
     f_pebout = model_dict['pebfile']
-    f_chm = cwd+'/'+model_dict['chmfile']
+    if model_dict['chmfile'] == 'None':
+        f_chm = cwd+'/'+cd.chemistry.make_chmfile(init_abuns)
+    else:
+        f_chm = cwd+'/'+model_dict['chmfile']
     outputdirr = model_dict['outputdir']
     outfile = model_dict['outfile']
 

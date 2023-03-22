@@ -57,3 +57,23 @@ def chem_helper(args: tuple) -> dict:
     # print('done with cell ',j)
     d = get_final_abuns(f'{dirr}/astrochem_output.h5','all')
     return d
+
+def make_chmfile(abuns):
+    """
+    Make a chm file with each species doing nothing so that their
+    abundances are still returned in the output file.
+    """
+    # template
+    # grain -> grain    0.00e+00  0.00e+00  0.00e+00  2  6830
+    reacno = 1
+    chmname = 'nochem.chm'
+    with open(chmname,'w+') as f:
+        for spec in abuns:
+            line = f'{spec} -> {spec}    0.00e+00  0.00e+00  0.00e+00  2  {reacno}\n'
+            f.write(line)
+            reacno+=1
+        if 'grain' not in abuns:
+            line = f'grain -> grain    0.00e+00  0.00e+00  0.00e+00  2  {reacno}\n'
+            f.write(line)
+            reacno+=1
+    return chmname
