@@ -99,6 +99,8 @@ Any parameters that are not explicitly set in the input file will use the defaul
 
 *Note:* Any relative paths to files are always from the parent directory (where `candy.py` is located). For example, if you had an input file in an input directory (say `newcandy/inputs/candyinput.ini`), the path to the chmfile will be relative to the `newcandy` directory. Output files will automatically be placed into the output directory `outputdir`.
 
+The chmfile path should always be relative to the newcandy home directory. Optionally, you can set `chmfile = None` to setup a run with no active chemistry.
+
 ### Model
 
 - chmfile
