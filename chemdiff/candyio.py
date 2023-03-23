@@ -96,6 +96,11 @@ def read_infile(fin):
     if model['tf'] not in model['touts']:
         print('Warning: tf is not in touts, including tf in list of output times')
         model['touts'].append(model['tf'])
+
+    dterror = 'Diffusion time must be less than or equal to chemtime.\n' \
+            +f'chemtime = {model["chemtime"]}\n' \
+            +f'difftime = {model["difftime"]}'
+    assert model['chemtime'] >= model['difftime'], dterror
     
     model['touts'].sort()
     print('touts = ',model['touts'])
