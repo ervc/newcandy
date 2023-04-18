@@ -7,6 +7,7 @@ chemdiff/__pycache__/
 # testing files
 cdtest.ini
 testoutput/
+astrochem/networks/scratch.chm
 
 #mac generated files
 .DS_Store

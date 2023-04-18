@@ -19,6 +19,7 @@ Chemistry ANd DYnamics in protoplanetary disks
   - [Reaction Types](#reaction-types)
 - [chemdiff](#chemdiff)
 - [bugs](#bugs)
+- [Changelog](#changelog)
 
 ## About
 
@@ -303,3 +304,15 @@ If you find a bug please let me know via email or provide a pull request to fix 
   + This error can arise if the species 'grain' is not included somewhere in the network file. If 'grain' is not in the network file, then the abundance of that species is not returned, and candy loses track of the proper grain abundance. This can be fixed by appending a reaction where 'grain' is present but does nothing. For example:
   
   ``` grain -> grain    0.00e+00  0.00e+00  0.00e+00  2  6830 ```
+
+## Changelog
+
+Below is a list of versions and any changes made between successive versions. It is always recommended to use the most recent version when possible.
+
+- 1.1.0
+  + Grain abun <-> dust-to-gas ratio functions now take grain_size in microns as second argument
+  + Include warnings for initial grain abundance and compare with initial dust-to-gas ratio
+  + Print the current version at start of the run
+
+- 1.0.0
+  + Initial version, major changes from CANDY

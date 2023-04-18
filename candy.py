@@ -4,6 +4,7 @@ import chemdiff as cd
 import chemdiff.constants as const
 
 def main(infile):
+    print(f'*** NEWCANDY v{cd.__version__} ***',flush=True)
     ### readin inputs
     model_dict,phys_dict,init_abuns = cd.candyio.read_infile(infile)
     STATIC = False
