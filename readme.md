@@ -156,7 +156,7 @@ The initial abundances of each molecular species. Abundances are assumed to be c
 
 | Molecule | Abundance |
 |---------:|:----------|
-H$_2$ | 5.00(-1)
+H $_2$ | 5.00(-1)
 He | 9.75(-2)	
 NH$_3$ | 1.45(-6)
 H$_2$O | 1.18(-4)	
@@ -199,17 +199,17 @@ times
 
 The different arrays have different shapes dependant on which dimension they vary. For an output with `nt` times, `nz` cells, and `nspec` species, the outputs are as follows:
 
-- times: *1D array, shape (nt,)*
+- times: *1D array, shape=(nt,)*
   - Output times in years.
-- species: *1D array, shape (nspec,)*
+- species: *1D array, shape=(nspec,)*
   - List of all species considered in the network.
-- abundances: *3D array, shape (nt, nz, nspec)*
+- abundances: *3D array, shape=(nt, nz, nspec)*
   - Abundances relative to hydrogen of all species, at all heights and all times.
-- heights: *1D array, shape (nz,)*
+- heights: *1D array, shape=(nz,)*
   - The elevation above the midplane at the center of each cell in cm.
-- density: *1D array, shape (nz,)*
+- density: *1D array, shape=(nz,)*
   - The number density of hydrogen in a given cell in cm$^{-3}$.
-- extinctions: *2D array, shape (nt, nz)*
+- extinctions: *2D array, shape=(nt, nz)*
   - The visual extinction, $A_v$ of a given cell at a given time. Convert to the UV optical depth using the relation $A_v = \tau_{UV}/3.02$
   
 
