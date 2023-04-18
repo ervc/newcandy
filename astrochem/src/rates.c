@@ -253,8 +253,6 @@ rate (double alpha, double beta, double gamm, int reaction_type,
       {
         /* H2 formation on grains */
         // Cazaux & Tielens 2002
-        // k = alpha * pow (tgas / 300, beta) * nh;
-
         double sqterm, beta_H2, beta_alpha, xi, f_mlps, eta, stick, s_eta;   
         f_mlps=1e-10; // monolayers per second                  
         sqterm=pow(1.0+sqrt((10000.0-200.0)/(600.0-200.0)),2.0); // square root term in Eq. 16 & 17
@@ -269,7 +267,6 @@ rate (double alpha, double beta, double gamm, int reaction_type,
         s_eta = stick*eta;
 
         k = s_eta*alpha*pow(tgas,beta)*nh*dg100;
-        // fprintf(stdout, "k H2 formation %e\n", k);
         break;
       }
 
