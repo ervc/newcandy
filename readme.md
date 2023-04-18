@@ -16,6 +16,7 @@ Chemistry ANd DYnamics in protoplanetary disks
   - [outfile](#outfile)
   - [Pebble composition](#pebble-composition)
 - [Astrochem Changes](#astrochem-changes)
+  - [Reaction Types](#reaction-types)
 - [chemdiff](#chemdiff)
 
 ## About
@@ -239,23 +240,40 @@ The pebble composition file has three columns, the first is the time of the outp
 
 The astrochem folder is copied from the [astrochem](https://github.com/smaret/astrochem) github page, complete with documentation and installation instructions. Changes have been made within the `src` folder, and Astrochem can be installed as usual. If you already have astrochem installed on your machine, you can simply copy the `src` folder from here into your astrochem directory (replacing the default astrochem/src folder), then reinstall as usual.
 
-Chemical network files (`.chm`) should follow the same format as astrochem but with added chemical reactions for:
+All of the chemical rate reactions are calculated in the `rate()` function in `astrochem/src/rates.c` (line 226). The function takes in the alpha, beta, and gamma parameters in addition to the reaction type from the chemical network file for each reaction. The rates also depend on the physical parameters, including column densities, temperature, extinction, and ice abundances.
+
+### Reaction types
+
+A full list of chemical reactions and their associated types considered in the expanded astrochem is included below
 
 |description | reacno|
 |------------:|:-------|
+| Electron-grain recombination| -1 |
+| H2 formation on grains | 0 |
 | HD formation on grains | 100 |
+| Cosmic-ray ionization | 1 |
+| General, two body reactions | 2-12 |
+| Photo-ionizationa and dissociation | 13 |
 | Shielded dissociation of H2 | 14 |
 | Shielded dissociation of HD | 114 |
 | Shielded photo-ionization of C | 15 |
 | Shielded dissociation of C16O | 16 |
 | Shielded dissociation of C17O | 17 |
 | Shielded dissociation of C18O | 18 |
+| Freezeout onto grains | 20 |
+| Thermal desorption | 21 |
+| Cosmic-ray desorption | 22 |
+| Photo-desorption | 23 |
 | Hydrogenation | 25 |
+| Cosmic-ray induced reactions | 41 |
 | Cosmic-ray desorption of CO | 42 |
 | Cosmic-ray reactions involving He | 43 |
 | secondary xray ionization of ... H | 60 |
 | ... H2 | 61 |
 | ... other molecules | 62 |
+| Photoelectron production from PAH | 70 |
+| Charge exchange with PAH | 71 |
+| Alternate charge exchange with PAH | 72 |
 | creation of excited H2 | 90 |
 | de-excitation of H2 | 91 | 
 | reactions with excited H2 | 92 |
