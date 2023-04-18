@@ -142,7 +142,7 @@ The chmfile path should always be relative to the newcandy home directory. Optio
 - dg0
   - Initial dust-to-gas mass ratio. *Default:* 0.01
 - opacity
-  - The UV opacity of the dust in cm$^2$ g$^{-1}$. *Default:* 1.0e5
+  - The UV opacity of the dust in $\mathrm{cm}^2$ $\mathrm{g}^{-1}$. *Default:* 1.0e5
 - growth_timescale_factor
   - Sets the timescale of growth for small grains into large pebbles. The growth timescale is defined as $\tau_\mathrm{grow} = a/\Omega\epsilon$, where a is the growth_timescale_factor. *Default:* 1
 - growth_height
@@ -156,16 +156,16 @@ The initial abundances of each molecular species. Abundances are assumed to be c
 
 | Molecule | Abundance |
 |---------:|:----------|
-H $_2$ | 5.00(-1)
+$\mathrm{H}_2$ | 5.00(-1)
 He | 9.75(-2)	
-NH$_3$ | 1.45(-6)
-H$_2$O | 1.18(-4)	
+$\mathrm{NH}_3$ | 1.45(-6)
+$\mathrm{H}_2\mathrm{O}$ | 1.18(-4)	
 CO | 6.00(-5) 
-N$_2$ | 2.00(-5)	
-CH$_4$ | 2.00(-6) 
-CH$_3$OH | 1.00(-6)	
-H$_2$S | 1.91(-8) 
-CO$_2$ | 5.00(-5)	
+$\mathrm{N}_2$ | 2.00(-5)	
+$\mathrm{CH}_4$ | 2.00(-6) 
+$\mathrm{CH}_3\mathrm{OH}$ | 1.00(-6)	
+$\mathrm{H}_2\mathrm{S}$ | 1.91(-8) 
+$\mathrm{CO}_2$ | 5.00(-5)	
 HCN | 3.50(-7) 
 Grains | 2.20(-12)
 
@@ -208,7 +208,7 @@ The different arrays have different shapes dependant on which dimension they var
 - heights: *1D array, shape=(nz,)*
   - The elevation above the midplane at the center of each cell in cm.
 - density: *1D array, shape=(nz,)*
-  - The number density of hydrogen in a given cell in cm$^{-3}$.
+  - The number density of hydrogen in a given cell in $\mathrm{cm}^{-3}$.
 - extinctions: *2D array, shape=(nt, nz)*
   - The visual extinction, $A_v$ of a given cell at a given time. Convert to the UV optical depth using the relation $A_v = \tau_{UV}/3.02$
   
