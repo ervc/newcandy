@@ -92,7 +92,7 @@ A growth run contains diffusion and pebble growth (and is the default setup for 
 
 Pebble compositions are stored normalized to the column density of hydrogen, with units of cm$^{-2}$.
 
-[^1]: The `growth_height` must be larger than the z-value of the lowest cell in the column. The column is 5 scaleheights tall, split between `ncells` cells. Cell z-values are stored for the center of each cell, so `growth_height` must be above $0.5*5/$`ncells`.
+[^1]: The `growth_height` must be larger than the z-value of the lowest cell in the column. The column is 5 scaleheights tall, split between `ncells` cells. Cell z-values are stored for the center of each cell, so `growth_height` must be above $0.5*5/$ `ncells`.
 
 ## Input parameters
 
@@ -136,13 +136,13 @@ The chmfile path should always be relative to the newcandy home directory. Optio
 - chi
   - external UV radiation field strength in Draine Units. *Default:* 50
 - cosmic
-  - Cosmic ionization rate in s$^{-1}$. *Default:* 1.3e-17
+  - Cosmic ionization rate in $\mathrm{s}^{-1}$. *Default:* 1.3e-17
 - grain_size
   - size of solid grains in microns. *Default:* 0.1
 - dg0
   - Initial dust-to-gas mass ratio. *Default:* 0.01
 - opacity
-  - The UV opacity of the dust in $\mathrm{cm}^2$ $\mathrm{g}^{-1}$. *Default:* 1.0e5
+  - The UV opacity of the dust in $\mathrm{cm}^2\mathrm{g}^{-1}$. *Default:* 1.0e5
 - growth_timescale_factor
   - Sets the timescale of growth for small grains into large pebbles. The growth timescale is defined as $\tau_\mathrm{grow} = a/\Omega\epsilon$, where a is the growth_timescale_factor. *Default:* 1
 - growth_height
@@ -157,17 +157,17 @@ The initial abundances of each molecular species. Abundances are assumed to be c
 | Molecule | Abundance |
 |---------:|:----------|
 $\mathrm{H}_2$ | 5.00(-1)
-He | 9.75(-2)	
+$\mathrm{He}$ | 9.75(-2)	
 $\mathrm{NH}_3$ | 1.45(-6)
 $\mathrm{H}_2\mathrm{O}$ | 1.18(-4)	
-CO | 6.00(-5) 
+$\mathrm{CO}$ | 6.00(-5) 
 $\mathrm{N}_2$ | 2.00(-5)	
 $\mathrm{CH}_4$ | 2.00(-6) 
 $\mathrm{CH}_3\mathrm{OH}$ | 1.00(-6)	
 $\mathrm{H}_2\mathrm{S}$ | 1.91(-8) 
 $\mathrm{CO}_2$ | 5.00(-5)	
-HCN | 3.50(-7) 
-Grains | 2.20(-12)
+$\mathrm{HCN}$ | 3.50(-7) 
+$\mathrm{grain}$ | 2.20(-12)
 
 ## Output files
 
