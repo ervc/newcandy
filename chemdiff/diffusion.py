@@ -28,7 +28,8 @@ def do_diffusion(col: Column, diffdt: float) -> None:
     for spec in newarray:
         for j in range(nzs):
             col.cells[j].abundances[spec] = newarray[spec][j]
-            col.cells[j].dust_gas_ratio = grain_abun2dg(newarray['grain'][j])
+            col.cells[j].dust_gas_ratio = grain_abun2dg(newarray['grain'][j],
+                                            col.cells[j].grain_size)
 
 def grow_grains(
         col: Column, diffdt: float, pebcomp: dict, 
@@ -50,7 +51,8 @@ def grow_grains(
                 if spec not in pebcomp:
                     pebcomp[spec] = 0
                 pebcomp[spec] -= d_ice*cell.nh*col.dz
-        cell.dust_gas_ratio = grain_abun2dg(cell.abundances['grain'])
+        cell.dust_gas_ratio = grain_abun2dg(cell.abundances['grain'],
+                                            col.cells[j].grain_size)
     return pebcomp
 
     
