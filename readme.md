@@ -18,6 +18,7 @@ Chemistry ANd DYnamics in protoplanetary disks
 - [Astrochem Changes](#astrochem-changes)
   - [Reaction Types](#reaction-types)
 - [chemdiff](#chemdiff)
+- [bugs](#bugs)
 
 ## About
 
@@ -293,3 +294,12 @@ The chemdiff directory contains all of the python modules. Of particular interes
   - Contains the disk parameters, including surface density and temperature profiles.
 - `utils.py`
   - Contains miscellanious, possibly useful, functions for analysis.
+  
+## Bugs
+
+If you find a bug please let me know via email or provide a pull request to fix the issue! Below are some of the known bugs that I am planning to fix, but haven't yet.
+
+- KeyError: 'grain'
+  + This error can arise if the species 'grain' is not included somewhere in the network file. If 'grain' is not in the network file, then the abundance of that species is not returned, and candy loses track of the proper grain abundance. This can be fixed by appending a reaction where 'grain' is present but does nothing. For example:
+  
+  ``` grain -> grain    0.00e+00  0.00e+00  0.00e+00  2  6830 ```

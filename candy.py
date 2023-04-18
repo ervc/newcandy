@@ -47,7 +47,6 @@ def main(infile):
             for t,tout in enumerate(touts):
                 f.write(f'{t}\t{tout}\n')
 
-
     ### initialize the column
     r = phys_dict['r']
     if phys_dict['r_units'].lower() == 'au':
@@ -59,6 +58,19 @@ def main(infile):
     nzs = model_dict['ncells']
 
     col = cd.create_column(r, alpha, nzs)
+
+    if GROWTH or DIFFUSION:
+        if 'grain' not in init_abuns:
+            print('grain abundance is not given, creating grain abundance from dg0')
+            grabun = cd.utils.dg2grain_abun(phys_dict['dg0'],phys_dict['grain_size'])
+            print(f'grain abundance = {grabun:.4e}',flush=True)
+            init_abuns['grain'] = grabun
+        else:
+            print('grain abundance is given, please make sure grain species is in the chemical network somewhere!')
+            dg_from_abun = cd.utils.grain_abun2dg(init_abuns['grain'])
+            print(f'dust-to-gas ratio from grain abundance = {dg_from_abun:.2e}')
+            print(f'dust-to-gas ratio from input file = {phys_dict["dg0"]:.2e}')
+            print('Are these consistent???',flush=True)
 
     ### create the cells
     ### integrate column densities while we do this
