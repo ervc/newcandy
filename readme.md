@@ -8,6 +8,7 @@ Chemistry ANd DYnamics in protoplanetary disks
   - [Static runs](#static-runs)
   - [Diffusive runs](#diffusive-runs)
   - [Growth runs](#growth-runs)
+  - [Continuing a run](#continuing-a-run)
 - [Input parameters](#input-parameters)
   - [Model](#model)
   - [Phys](#phys)
@@ -94,6 +95,14 @@ Pebble compositions are stored normalized to the column density of hydrogen, wit
 
 [^1]: The `growth_height` must be larger than the z-value of the lowest cell in the column. The column is 5 scaleheights tall, split between `ncells` cells. Cell z-values are stored for the center of each cell, so `growth_height` must be above $0.5*5/$ `ncells`.
 
+### Continuing a run
+
+*(>= v1.2.0)* If a run of candy is stopped for any reason, the run can be continued using the `-C` or `--Continue` flag followed by the number of the output to continue from. For example, to continue a run from the 8th output, call
+
+    python candy.py -C 8 examples/growth_example/growth_example.ini
+
+from the command line. This will start the run using abundances from outputs ending in `_t8` at the time `touts[8]`
+
 ## Input parameters
 
 Input files for CANDY are split into three sections: model inputs `[model]` which controls solver parameters, physical inputs `[phys]` which sets the relevent physical values for chemistry, and the molecular abundances `[abundances]`, which sets the intial abundances of each chemical species in the cells.
@@ -120,6 +129,8 @@ The chmfile path should always be relative to the newcandy home directory. Optio
   - Maximum time in years to run chemistry in each cell before diffusion. *Default:* 500
 - difftime
   - Maximum timestep for diffusion between cells and pebble growth. *Default:* 100
+- touts
+  - list of output times in years for the simulation (if diffusive or growth run). If not supplied, default output times are generated semi-logarithmically based on ti and tf (touts = \[1e3, 2e3, 3e3,..., 1e4, 2e4, 3e4,..., 1e5, 1.5e5, 2e5,..., tf\])
 - outputdir
   - Output directory where output files will be stored (trailing `/` is not needed, this is always interpreted as a directory).  *Default:* r00
 - outfile
@@ -308,6 +319,8 @@ If you find a bug please let me know via email or provide a pull request to fix 
 ## Changelog
 
 Below is a list of versions and any changes made between successive versions. It is always recommended to use the most recent version when possible.
+- 1.2.0
+  + Include option to continue previous run using `-C` or `--Continue` flags
 
 - 1.1.0
   + Grain abun <-> dust-to-gas ratio functions now take grain_size in microns as second argument
