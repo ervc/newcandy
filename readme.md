@@ -321,6 +321,8 @@ If you find a bug please let me know via email or provide a pull request to fix 
 Below is a list of versions and any changes made between successive versions. It is always recommended to use the most recent version when possible.
 - 1.2.0
   + Include option to continue previous run using `-C` or `--Continue` flags
+  + 1.2.1
+    * fixed bug when checking for if grain is defined in init_abuns
 
 - 1.1.0
   + Grain abun <-> dust-to-gas ratio functions now take grain_size in microns as second argument

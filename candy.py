@@ -70,7 +70,7 @@ def main(infile,CONT=-1):
 
     col = cd.create_column(r, alpha, nzs)
 
-    if (GROWTH or DIFFUSION) and (CONT<0):
+    if (not STATIC) and (CONT<0):
         if 'grain' not in init_abuns:
             print('grain abundance is not given, creating grain abundance from dg0')
             grabun = cd.utils.dg2grain_abun(phys_dict['dg0'],phys_dict['grain_size'])
