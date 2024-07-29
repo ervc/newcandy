@@ -177,8 +177,6 @@ def main(infile,CONT=-1):
             print('next tout: ',tout)
             chemdt = min(chemtime,tout-time)
 
-            #### DO CHEMISTRY ####
-            sols = cd.chemistry.do_chemistry(col, chemdt, f_chm, outputdirr)
 
             #### DO DIFFUSION AND GROWTH ####
             subtime = 0
@@ -194,6 +192,10 @@ def main(infile,CONT=-1):
 
             col.update_column_densities(phys_dict['opacity'])
 
+            #### DO CHEMISTRY ####
+            sols = cd.chemistry.do_chemistry(col, chemdt, f_chm, outputdirr)
+
+            ### step time and save values ###
             time += chemdt
             if time >= tout:
                 print(f'time: {time}')
@@ -209,8 +211,8 @@ def main(infile,CONT=-1):
     else:
         print('static run')
         cd.chemistry.do_chemistry(col,chemtime,f_chm,outputdirr)
-        cd.candyio.gather_static_abuns(col,outputdirr,outfile,
-            model_dict['tf'],True)
+        #cd.candyio.gather_static_abuns(col,outputdirr,outfile,
+        #    model_dict['tf'],True)
 
 if __name__ == '__main__':
     import argparse
