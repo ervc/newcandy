@@ -208,14 +208,11 @@ def main(infile,CONT=-1):
                         f'{outputdirr}/{f_pebout}',time)
                 nout+=1
 
-        ### gather abundances
-        #cd.candyio.gather_all_abundances(col,outputdirr,outfile,
-        #    model_dict['tf'],True)
     else:
         print('static run')
         cd.chemistry.do_chemistry(col,chemtime,f_chm,outputdirr)
-        #cd.candyio.gather_static_abuns(col,outputdirr,outfile,
-        #    model_dict['tf'],True)
+        cd.candyio.gather_static_abuns(col,outputdirr,outfile,
+           model_dict['tf'],True)
 
 if __name__ == '__main__':
     import argparse
