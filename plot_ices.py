@@ -56,7 +56,7 @@ def get_alt_ice_abuns(cdout):
     k = np.where(specs==spec)[0][0]
     kdust = np.where(specs=='grain')[0][0]
     for z in range(nz):
-        subtotal += abuns[:,z,k]*numdens[z]*dz - 
+        subtotal += abuns[:,z,k]*numdens[z]*dz - 0
 
     return subtotal
 
@@ -162,11 +162,12 @@ def main():
     fig,axs = plt.subplots(2,1,sharex=True,height_ratios=(4,1))
 
     outdirs = [
-        'examples/ice_check/',
-        'examples/ice_check_difffirst',
+        'examples/ice_check_parallel',
+        'examples/ice_check',
     ]
 
     lss = ['-','--']
+    
 
     for ls,outdir in zip(lss,outdirs):
 
@@ -176,6 +177,7 @@ def main():
         cdout = np.load(candyfile)
 
         times = cdout['times']
+        tslice = np.s_[times<=1.e4]
 
 
         gasabun = get_gas_abuns(cdout)
@@ -188,9 +190,9 @@ def main():
 
         ax=axs[0]
         # ax.plot(times,gasabun,label='gas',ls=ls)
-        ax.plot(times,iceabun,label='ice',ls=ls)
-        ax.plot(times,pebabun,label='peb',ls=ls)
-        ax.plot(times,totabun,label='total',ls=ls)
+        ax.plot(times[tslice],iceabun[tslice],label='ice',ls=ls)
+        ax.plot(times[tslice],pebabun[tslice],label='peb',ls=ls)
+        ax.plot(times[tslice],totabun[tslice],label='total',ls=ls)
 
         print('max value, min value = ',np.max(totabun),np.min(totabun))
 
@@ -200,9 +202,9 @@ def main():
         
         ax=axs[1]
         ax.axhline(1,ls=':',c='k')
-        ax.plot(times,totabun/analytic_abun,label=outdir,ls=ls)
-        ax.set(xlabel='Time',ylabel='Total/Total_0')
-        ax.legend()
+        ax.plot(times[tslice],totabun[tslice]/analytic_abun,label=outdir,ls=ls)
+        ax.set(xlabel='Time',ylabel='Frac Error',yscale='linear')
+        ax.legend(loc = 'lower right',bbox_to_anchor=(1,1.5))
 
 
     plt.savefig('examples/ice_check/ices_compare.png',bbox_inches='tight')
