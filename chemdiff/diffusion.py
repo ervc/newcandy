@@ -15,7 +15,7 @@ def do_diffusion(col: Column, diffdt: float) -> None:
         for j in range(nzs):
             rho_j = col.cells[j].rho
             sp = col_abuns[spec]
-            fp = 0
+            fp = 0.
             if j < nzs-1:
                 rho_j1 = col.cells[j+1].rho
                 fp = 0.5*(rho_j+rho_j1)*beta*(sp[j+1]-sp[j])/col.dz
