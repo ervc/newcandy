@@ -121,6 +121,58 @@ def save_outputs(col: Column, nout: int, outputdirr: str) -> None:
         subprocess.run(['cp','source.mdl',f'source_t{nout}.mdl'],cwd=dirr)
         subprocess.run(['cp','input.ini',f'input_t{nout}.ini'],cwd=dirr)
 
+def new_save_outputs(col: Column, nout: int, time: float,
+                     outputdirr: str, outputfile: str,
+                     delete_subdir: bool = False) -> None:
+    
+    save_outputs(col,nout,outputdirr)
+    nzs = col.ncells
+    if nout==0:
+        species = get_specs_array(outputdirr)
+        nspec = len(species)
+        times = read_touts_from_file(f'{outputdirr}/times.out')
+        nts = len(times)
+
+        gas_dens = np.zeros(nzs)
+        extinctions = np.zeros((nts,nzs))
+        abundances = np.zeros((nts,nzs,nspec))
+        heights = np.zeros(nzs)
+
+        for j in range(nzs):
+            cell = col.cells[j]
+            gas_dens[j] = cell.nh
+            extinctions[0,j] = cell.av
+            heights[j] = cell.z
+            for k in range(nspec):
+                abundances[0,j,k] = cell.abundances[species[k]]
+
+    else:
+        
+        oldoutput = np.load(f'{outputdirr}/{outputfile}')
+        # get things that don't change
+        times    = oldoutput['times']
+        species  = oldoutput['species']
+        heights  = oldoutput['heights']
+        gas_dens = oldoutput['density']
+        # update the things that do
+        extinctions = oldoutput['extinctions']
+        abundances  = oldoutput['abundances']
+        nspec = len(species)
+        for j in range(nzs):
+            cell = col.cells[j]
+            extinctions[nout,j] = cell.av
+            for k in range(nspec):
+                abundances[nout,j,k] = cell.abundances[species[k]]
+
+    np.savez(f'{outputdirr}/{outputfile}',times=times,species=species,
+        abundances=abundances,heights=heights,density=gas_dens,
+        extinctions=extinctions)
+    if delete_subdir:
+        print('removing sub directories')
+        print(f'rm -rf {outputdirr}/z*')
+        subprocess.run(f'rm -rf {outputdirr}/z*', shell=True)
+
+
 def get_nh_and_av(source_file):
     ''' Read the gas density (nh) and visual extinction (av) from source.mdl file '''
     with open(source_file,'r') as f:

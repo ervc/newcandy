@@ -2,25 +2,26 @@
 
 Chemistry ANd DYnamics in protoplanetary disks
 
-- [About](#about)
-- [Installation and Requirements](#installation-and-requirements)
-- [Quickstart](#quickstart)
-  - [Static runs](#static-runs)
-  - [Diffusive runs](#diffusive-runs)
-  - [Growth runs](#growth-runs)
-  - [Continuing a run](#continuing-a-run)
-- [Input parameters](#input-parameters)
-  - [Model](#model)
-  - [Phys](#phys)
-  - [Abundances](#abundances)
-- [Output files](#output-files)
-  - [outfile](#outfile)
-  - [Pebble composition](#pebble-composition)
-- [Astrochem Changes](#astrochem-changes)
-  - [Reaction Types](#reaction-types)
-- [chemdiff](#chemdiff)
-- [bugs](#bugs)
-- [Changelog](#changelog)
+- [Candy](#candy)
+  - [About](#about)
+  - [Installation and Requirements](#installation-and-requirements)
+  - [Quickstart](#quickstart)
+    - [Static runs](#static-runs)
+    - [Diffusive runs](#diffusive-runs)
+    - [Growth runs](#growth-runs)
+    - [Continuing a run](#continuing-a-run)
+  - [Input parameters](#input-parameters)
+    - [Model](#model)
+    - [Phys](#phys)
+    - [Abundances](#abundances)
+  - [Output files](#output-files)
+    - [outfile](#outfile)
+    - [Pebble composition](#pebble-composition)
+  - [Astrochem Changes](#astrochem-changes)
+    - [Reaction types](#reaction-types)
+  - [chemdiff](#chemdiff)
+  - [Bugs](#bugs)
+  - [Changelog](#changelog)
 
 ## About
 
@@ -329,6 +330,8 @@ Below is a list of versions and any changes made between successive versions. It
   + Include option to continue previous run using `-C` or `--Continue` flags
   + 1.2.1
     * fixed bug when checking for if grain is defined in init_abuns
+  + 1.2.2
+    + fixed bug with double counting ice between astrochem output and pebble abundances 
 
 - 1.1.0
   + Grain abun <-> dust-to-gas ratio functions now take grain_size in microns as second argument

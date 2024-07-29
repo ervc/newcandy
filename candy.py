@@ -189,28 +189,30 @@ def main(infile,CONT=-1):
                 if GROWTH and time >= phys_dict['growth_delay_time']:
                     pebcomp = cd.diffusion.grow_grains(col,diffdt,pebcomp,
                         phys_dict['growth_timescale_factor'],
-                        phys_dict['growth_height'])
+                        phys_dict['growth_height'],
+                        outputdirr)
                 subtime += diffdt
 
             col.update_column_densities(phys_dict['opacity'])
 
+            ### step time and save values ###
             time += chemdt
             if time >= tout:
                 print(f'time: {time}')
-                cd.candyio.save_outputs(col,nout,outputdirr)
+                dsd = False
+                if time >= tf: dsd = True
+                cd.candyio.new_save_outputs(col,nout,time,
+                    outputdirr,outfile,delete_subdir=dsd)
                 if GROWTH:
                     cd.candyio.save_pebbles(col,pebcomp,
                         f'{outputdirr}/{f_pebout}',time)
                 nout+=1
 
-        ### gather abundances
-        cd.candyio.gather_all_abundances(col,outputdirr,outfile,
-            model_dict['tf'],True)
     else:
         print('static run')
         cd.chemistry.do_chemistry(col,chemtime,f_chm,outputdirr)
         cd.candyio.gather_static_abuns(col,outputdirr,outfile,
-            model_dict['tf'],True)
+           model_dict['tf'],True)
 
 if __name__ == '__main__':
     import argparse
