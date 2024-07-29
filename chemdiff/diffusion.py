@@ -6,19 +6,6 @@ from .utils import grain_abun2dg
 from .column import Column
 from .candyio import readh5file
 
-def change_astrochem_value(f: h5py.File, specname: str, delta: float) -> None:
-    """
-    Update the value of a given species in the h5file by amount delta.
-    abundances[species] += delta
-    """
-    spec = f['Species']
-    for i in range(spec.size):
-        specie = spec[i].decode('utf-8')
-        if specie == specname:
-            og = f['Abundances'][0,-1,i]
-            f['Abundances'][0,-1,i] = og+delta
-    return
-
 def do_diffusion(col: Column, diffdt: float) -> None:
     diff = col.alpha*col.cs*col.h
     beta = 0.5*diff*diffdt*const.YR
@@ -51,17 +38,12 @@ def grow_grains(
         growth_timescale_factor: float, growth_height: float, outputdir: str) -> dict:
     nzs = col.ncells
     for j in range(nzs):
-        # use the most recent chemistry output for this
-        # h5file = f'{outputdir}/z{j:0>2}/astrochem_output.h5'
-        # f = h5py.File(h5file,'r+')
         cell = col.cells[j]
         t_grow = growth_timescale_factor/(cell.dust_gas_ratio*col.omega)
         if cell.z/col.h <= growth_height:
             deps = -diffdt*const.YR/t_grow
         else:
             deps = 0
-        # if spec is an ice then reduce its abundance by deps
-        # and add that missing ice to the pebcomp dictionary
         for spec in cell.abundances:
             if spec.startswith('grain'):
                 d_ice = deps*cell.abundances[spec]
@@ -72,7 +54,6 @@ def grow_grains(
                 pebcomp[spec] -= d_ice*cell.nh*col.dz
         cell.dust_gas_ratio = grain_abun2dg(cell.abundances['grain'],
                                             col.cells[j].grain_size)
-        # f.close()
     return pebcomp
 
     
