@@ -9,12 +9,11 @@
 import os
 import sys
 sys.path.insert(0,os.path.abspath("../../"))
-import chemdiff as cd
 
 project = 'newcandy'
 copyright = '2024, Eric Van Clepper'
 author = 'Eric Van Clepper'
-release = cd.__version__
+release = '1.2.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
