@@ -58,10 +58,15 @@ def chem_helper(args: tuple) -> dict:
     d = get_final_abuns(f'{dirr}/astrochem_output.h5','all')
     return d
 
-def make_chmfile(abuns):
-    """
-    Make a chm file with each species doing nothing so that their
+def make_chmfile(abuns: dict) -> str:
+    """Make a chm file with each species doing nothing so that their
     abundances are still returned in the output file.
+
+    Args:
+        abuns (dict): dictionary where the keys are species to be included in the do-nothing network
+
+    Returns:
+        str: name of file created
     """
     # template
     # grain -> grain    0.00e+00  0.00e+00  0.00e+00  2  6830

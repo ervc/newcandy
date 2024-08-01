@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chemdiff.cell &mdash; newcandy 1.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            newcandy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Candy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">chemdiff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">newcandy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../chemdiff.html">chemdiff</a></li>
+      <li class="breadcrumb-item active">chemdiff.cell</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for chemdiff.cell</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="Cell">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.cell.Cell">[docs]</a>
+<span class="k">class</span> <span class="nc">Cell</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A cell has:</span>
+
+<span class="sd">    a physical location</span>
+<span class="sd">        r,z</span>
+
+<span class="sd">    physical parameters for the solver</span>
+<span class="sd">        chi, cosmic, grain size, dust/gas ratio</span>
+
+<span class="sd">    source model parameters</span>
+<span class="sd">        given</span>
+<span class="sd">            Av, nh, Tgas, Tdust, xrays</span>
+<span class="sd">        calculated</span>
+<span class="sd">            NCO, NH2, (density)</span>
+
+<span class="sd">    abundances</span>
+<span class="sd">        dict of abundances</span>
+
+<span class="sd">    diffusion parameters</span>
+<span class="sd">        given </span>
+<span class="sd">            omega, </span>
+<span class="sd">            alpha, dz, dt (solver params?)</span>
+<span class="sd">        calculated</span>
+<span class="sd">            cs, h, D, beta</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">z</span><span class="p">,</span>
+            <span class="n">chi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cosmic</span><span class="o">=</span><span class="mf">1.3e-17</span><span class="p">,</span><span class="n">grain_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">dust_gas_ratio</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+            <span class="n">av</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">rho</span><span class="o">=</span><span class="mf">1e10</span><span class="p">,</span><span class="n">Tgas</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">Tdust</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">NCO</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span><span class="n">NH2</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span><span class="n">NHD</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span><span class="n">NH</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+            <span class="n">abundances</span> <span class="o">=</span> <span class="p">{}):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="c1"># cm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span> <span class="c1"># cm</span>
+
+        <span class="c1"># phys</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chi</span> <span class="o">=</span> <span class="n">chi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosmic</span> <span class="o">=</span> <span class="n">cosmic</span> <span class="c1"># s-1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grain_size</span> <span class="o">=</span> <span class="n">grain_size</span> <span class="c1"># micron</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dust_gas_ratio</span> <span class="o">=</span> <span class="n">dust_gas_ratio</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">av</span> <span class="o">=</span> <span class="n">av</span> <span class="c1"># mag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rho</span> <span class="o">=</span> <span class="n">rho</span> <span class="c1"># g.cm-3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nh</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">rho</span><span class="o">/</span><span class="n">MBAR</span> <span class="c1"># cm-3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Tgas</span> <span class="o">=</span> <span class="n">Tgas</span> <span class="c1"># K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Tdust</span> <span class="o">=</span> <span class="n">Tdust</span> <span class="c1"># K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xray</span> <span class="o">=</span> <span class="n">xray</span> <span class="c1"># s-1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">NCO</span> <span class="o">=</span> <span class="n">NCO</span> <span class="c1"># cm-2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">NH2</span> <span class="o">=</span> <span class="n">NH2</span> <span class="c1"># cm-2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">NHD</span> <span class="o">=</span> <span class="n">NHD</span> <span class="c1"># cm-2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">NH</span> <span class="o">=</span> <span class="n">NH</span> <span class="c1"># cm-2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">abundances</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">abundances</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Cell.write_chem_inputs">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.cell.Cell.write_chem_inputs">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_chem_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tf</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span><span class="n">abs_err</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span><span class="n">rel_err</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span><span class="n">abun_out</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+            <span class="n">f_net</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;network.chm&#39;</span><span class="p">,</span><span class="n">f_input</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;input.ini&#39;</span><span class="p">,</span><span class="n">f_source</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;source.mdl&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write the chmical input and source files for astrochem</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tf (float): final time for chemistry</span>
+<span class="sd">            abs_err (float): absolute error for chemistry. If abundance is less than this set to zero</span>
+<span class="sd">            rel_err (float): relative error for chemistry</span>
+<span class="sd">            abun_out (str, optional): what species to track. Defaults to &#39;all&#39;.</span>
+<span class="sd">            f_net (str, optional): chemical network to use for chemistry. Defaults to &#39;network.chm&#39;.</span>
+<span class="sd">            f_input (str, optional): name of input file to write. Defaults to &#39;input.ini&#39;.</span>
+<span class="sd">            f_source (str, optional): name of source file to write. Defaults to &#39;source.mdl&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_input</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[files]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;source = </span><span class="si">{</span><span class="n">f_source</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="sa">f</span><span class="s1">&#39;chem = </span><span class="si">{</span><span class="n">f_net</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[phys]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;chi = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chi</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="sa">f</span><span class="s1">&#39;cosmic = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cosmic</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="sa">f</span><span class="s1">&#39;grain_size = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">grain_size</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="sa">f</span><span class="s1">&#39;grain_gas_mass_ratio = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dust_gas_ratio</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[solver]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ti = 1.00e-06</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="sa">f</span><span class="s1">&#39;tf = </span><span class="si">{</span><span class="n">tf</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="sa">f</span><span class="s1">&#39;abs_err = </span><span class="si">{</span><span class="n">abs_err</span><span class="si">:</span><span class="s1">.1e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="sa">f</span><span class="s1">&#39;rel_err = </span><span class="si">{</span><span class="n">rel_err</span><span class="si">:</span><span class="s1">.1e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[abundances]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">abundances</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abundances</span><span class="p">[</span><span class="n">spec</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">abs_err</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">abundances</span><span class="p">[</span><span class="n">spec</span><span class="p">]</span><span class="si">:</span><span class="s1">.15e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Problem with Abundances:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">abundances</span><span class="p">)</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[output]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;abundances = </span><span class="si">{</span><span class="n">abun_out</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="s1">&#39;time_steps = 64</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
+                <span class="s1">&#39;trace_routes = 0&#39;</span><span class="p">)</span>
+
+        <span class="c1"># print(f&#39;Input written to {f_input}&#39;)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_source</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# self Av[mag] n(H)[cm-3] Tgas[K] Tdust[K] NCO[cm-2] NH2[cm-2] NHD[cm-2] xray-ion[s-1] R[au] Z[au]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;0    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">av</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nh</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">Tgas</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">Tdust</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">NCO</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">NH2</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">NHD</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">xray</span><span class="si">:</span><span class="s1">.3e</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">/</span><span class="n">AU</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">/</span><span class="n">AU</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+        <span class="c1"># print(f&#39;Source written to {f_source}&#39;)</span>
+
+<div class="viewcode-block" id="Cell.update_abundances">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.cell.Cell.update_abundances">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_abundances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">new_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the abundances of each species in the cell</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            new_dict (dict): dictionary of new species and abundances</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abundances</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">new_dict</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Eric Van Clepper.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

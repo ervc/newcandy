@@ -2,6 +2,8 @@
 
 Chemistry ANd DYnamics in protoplanetary disks
 
+See read the docs for most up-to-date documentation
+
 - [Candy](#candy)
   - [About](#about)
   - [Installation and Requirements](#installation-and-requirements)

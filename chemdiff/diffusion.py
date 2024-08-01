@@ -7,6 +7,12 @@ from .column import Column
 from .candyio import readh5file
 
 def do_diffusion(col: Column, diffdt: float) -> None:
+    """Do the diffusion between cells in the column
+
+    Args:
+        col (Column): CANDY Column
+        diffdt (float): timestep for the diffusion
+    """
     diff = col.alpha*col.cs*col.h
     beta = 0.5*diff*diffdt*const.YR
     nzs = col.ncells
@@ -36,6 +42,19 @@ def do_diffusion(col: Column, diffdt: float) -> None:
 def grow_grains(
         col: Column, diffdt: float, pebcomp: dict, 
         growth_timescale_factor: float, growth_height: float, outputdir: str) -> dict:
+    """Grow the grains from the column. Remove ices and grains and update the pebble abundances
+
+    Args:
+        col (Column): CANDY Column
+        diffdt (float): diffusion timestep
+        pebcomp (dict): pebble composition dictionary
+        growth_timescale_factor (float): growth timescale factor. tau_grow = (this)*1/(epsilon*Omega)
+        growth_height (float): scaleheight under which pebbles will grow
+        outputdir (str): output directory (unused)
+
+    Returns:
+        dict: updated dictionary of pebble abundances
+    """
     nzs = col.ncells
     for j in range(nzs):
         cell = col.cells[j]

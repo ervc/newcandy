@@ -3,17 +3,17 @@ import os, subprocess
 import chemdiff as cd
 import chemdiff.constants as const
 
-def main(infile,CONT=-1):
-    ''' Main CANDY algorithm, switch off between chemistry and dynamics
-    Parameters
-    ----------
-    infile : str
-        name of input file to read parameters from
-    CONT : int, default=-1
-        if greater than zero, continue run from the CONT output. 
-        Otherwise, create the cells using abundances from the infile
+def main(infile: str,CONT: int=-1):
+    """Main CANDY algorithm, switches off between chemistry and dyanmics
 
-    '''
+    Args:
+        infile (str): name of input file to read
+        CONT (int, optional): Continue from output if CONT is >=0. Defaults to -1.
+
+    Raises:
+        NameError: Error if issue reading infile
+    """
+
     print(f'*** NEWCANDY v{cd.__version__} ***',flush=True)
     ### readin inputs
     model_dict,phys_dict,init_abuns = cd.candyio.read_infile(infile)

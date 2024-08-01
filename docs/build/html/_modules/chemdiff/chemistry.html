@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chemdiff.chemistry &mdash; newcandy 1.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            newcandy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Candy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">chemdiff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">newcandy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../chemdiff.html">chemdiff</a></li>
+      <li class="breadcrumb-item active">chemdiff.chemistry</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for chemdiff.chemistry</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">subprocess</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">.candyio</span> <span class="kn">import</span> <span class="n">get_final_abuns</span>
+<span class="kn">from</span> <span class="nn">.column</span> <span class="kn">import</span> <span class="n">Column</span>
+
+<div class="viewcode-block" id="do_chemistry">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.chemistry.do_chemistry">[docs]</a>
+<span class="k">def</span> <span class="nf">do_chemistry</span><span class="p">(</span>
+        <span class="n">col</span><span class="p">:</span> <span class="n">Column</span><span class="p">,</span> <span class="n">chemtime</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">f_chm</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outdirr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">abs_err</span><span class="o">=</span><span class="mf">1.e-20</span><span class="p">,</span> <span class="n">rel_err</span><span class="o">=</span><span class="mf">1.e-10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Setup chem_helper() function to call astrochem in parallel</span>
+<span class="sd">    using python multiprocessing library.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    col</span>
+<span class="sd">        Column to do chemistry on</span>
+<span class="sd">    chemtime</span>
+<span class="sd">        Time (in years) over which to do chemistry</span>
+<span class="sd">    f_chm</span>
+<span class="sd">        chm file to use for chemistry</span>
+<span class="sd">    outdirr</span>
+<span class="sd">        output directory</span>
+<span class="sd">    abs_err, rel_err</span>
+<span class="sd">        absolute and relative errors for chemistry integration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">col</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f_chm</span><span class="p">,</span> <span class="n">chemtime</span><span class="p">,</span> <span class="n">abs_err</span><span class="p">,</span> <span class="n">rel_err</span><span class="p">,</span> <span class="n">outdirr</span><span class="p">)</span> 
+             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">ncells</span><span class="p">)]</span>
+    <span class="k">with</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+        <span class="n">solvedcells</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">chem_helper</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">ncells</span><span class="p">):</span>
+        <span class="n">col</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">update_abundances</span><span class="p">(</span><span class="n">solvedcells</span><span class="p">[</span><span class="n">j</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="chem_helper">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.chemistry.chem_helper">[docs]</a>
+<span class="k">def</span> <span class="nf">chem_helper</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Helper function to parallelize chemistry calculation. Calls</span>
+<span class="sd">    Astrochem on a given cell</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    args</span>
+<span class="sd">        tuple of arguments from do_chemistry() function</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        update abundance dictionary after chemistry</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">col</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f_chm</span><span class="p">,</span> <span class="n">chemtime</span><span class="p">,</span> <span class="n">abs_err</span><span class="p">,</span> <span class="n">rel_err</span><span class="p">,</span> <span class="n">outdirr</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">dirr</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">outdirr</span><span class="si">}</span><span class="s1">/z</span><span class="si">{</span><span class="n">j</span><span class="si">:</span><span class="s1">0&gt;2</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">cell</span><span class="o">.</span><span class="n">write_chem_inputs</span><span class="p">(</span><span class="n">chemtime</span><span class="p">,</span> <span class="n">abs_err</span><span class="p">,</span> <span class="n">rel_err</span><span class="p">,</span> <span class="n">f_net</span><span class="o">=</span><span class="n">f_chm</span><span class="p">,</span> 
+        <span class="n">f_input</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dirr</span><span class="si">}</span><span class="s1">/input.ini&#39;</span><span class="p">,</span> <span class="n">f_source</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dirr</span><span class="si">}</span><span class="s1">/source.mdl&#39;</span><span class="p">)</span>
+    <span class="c1"># print(&#39;working on cell &#39;,j)</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;astrochem&#39;</span><span class="p">,</span><span class="s1">&#39;-q&#39;</span><span class="p">,</span><span class="s1">&#39;input.ini&#39;</span><span class="p">],</span><span class="n">cwd</span><span class="o">=</span><span class="n">dirr</span><span class="p">)</span>
+    <span class="c1"># print(&#39;done with cell &#39;,j)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">get_final_abuns</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dirr</span><span class="si">}</span><span class="s1">/astrochem_output.h5&#39;</span><span class="p">,</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="make_chmfile">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.chemistry.make_chmfile">[docs]</a>
+<span class="k">def</span> <span class="nf">make_chmfile</span><span class="p">(</span><span class="n">abuns</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make a chm file with each species doing nothing so that their</span>
+<span class="sd">    abundances are still returned in the output file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        abuns (dict): dictionary where the keys are species to be included in the do-nothing network</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: name of file created</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># template</span>
+    <span class="c1"># grain -&gt; grain    0.00e+00  0.00e+00  0.00e+00  2  6830</span>
+    <span class="n">reacno</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">chmname</span> <span class="o">=</span> <span class="s1">&#39;nochem.chm&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">chmname</span><span class="p">,</span><span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">abuns</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="s1">    0.00e+00  0.00e+00  0.00e+00  2  </span><span class="si">{</span><span class="n">reacno</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="n">reacno</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="s1">&#39;grain&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">abuns</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;grain -&gt; grain    0.00e+00  0.00e+00  0.00e+00  2  </span><span class="si">{</span><span class="n">reacno</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="n">reacno</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">chmname</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Eric Van Clepper.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

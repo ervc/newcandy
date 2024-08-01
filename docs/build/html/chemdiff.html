@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chemdiff package &mdash; newcandy 1.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fd7cadf9"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="chemdiff" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            newcandy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Candy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">chemdiff</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">chemdiff package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.candyio">chemdiff.candyio module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.gather_all_abundances"><code class="docutils literal notranslate"><span class="pre">gather_all_abundances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.gather_static_abuns"><code class="docutils literal notranslate"><span class="pre">gather_static_abuns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.get_abundict"><code class="docutils literal notranslate"><span class="pre">get_abundict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.get_defaults"><code class="docutils literal notranslate"><span class="pre">get_defaults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.get_final_abuns"><code class="docutils literal notranslate"><span class="pre">get_final_abuns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.get_nh_and_av"><code class="docutils literal notranslate"><span class="pre">get_nh_and_av()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.get_specs_array"><code class="docutils literal notranslate"><span class="pre">get_specs_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.get_touts"><code class="docutils literal notranslate"><span class="pre">get_touts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.new_save_outputs"><code class="docutils literal notranslate"><span class="pre">new_save_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.parse_list"><code class="docutils literal notranslate"><span class="pre">parse_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.read_infile"><code class="docutils literal notranslate"><span class="pre">read_infile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.read_touts_from_file"><code class="docutils literal notranslate"><span class="pre">read_touts_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.readh5file"><code class="docutils literal notranslate"><span class="pre">readh5file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.save_outputs"><code class="docutils literal notranslate"><span class="pre">save_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.candyio.save_pebbles"><code class="docutils literal notranslate"><span class="pre">save_pebbles()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.cell">chemdiff.cell module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.cell.Cell"><code class="docutils literal notranslate"><span class="pre">Cell</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.chemistry">chemdiff.chemistry module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.chemistry.chem_helper"><code class="docutils literal notranslate"><span class="pre">chem_helper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.chemistry.do_chemistry"><code class="docutils literal notranslate"><span class="pre">do_chemistry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.chemistry.make_chmfile"><code class="docutils literal notranslate"><span class="pre">make_chmfile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.column">chemdiff.column module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.column.Column"><code class="docutils literal notranslate"><span class="pre">Column</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.constants">chemdiff.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.diffusion">chemdiff.diffusion module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.diffusion.do_diffusion"><code class="docutils literal notranslate"><span class="pre">do_diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.diffusion.grow_grains"><code class="docutils literal notranslate"><span class="pre">grow_grains()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.disk">chemdiff.disk module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.disk.get_density"><code class="docutils literal notranslate"><span class="pre">get_density()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.disk.get_midplane_temp"><code class="docutils literal notranslate"><span class="pre">get_midplane_temp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.disk.get_omega"><code class="docutils literal notranslate"><span class="pre">get_omega()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.disk.get_scaleheight"><code class="docutils literal notranslate"><span class="pre">get_scaleheight()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.disk.get_soundspeed"><code class="docutils literal notranslate"><span class="pre">get_soundspeed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.disk.get_surface_density"><code class="docutils literal notranslate"><span class="pre">get_surface_density()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.disk.get_temperature"><code class="docutils literal notranslate"><span class="pre">get_temperature()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.plotting">chemdiff.plotting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff.utils">chemdiff.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.utils.dg2grain_abun"><code class="docutils literal notranslate"><span class="pre">dg2grain_abun()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.utils.grain_abun2dg"><code class="docutils literal notranslate"><span class="pre">grain_abun2dg()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chemdiff">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.create_cell"><code class="docutils literal notranslate"><span class="pre">create_cell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemdiff.create_column"><code class="docutils literal notranslate"><span class="pre">create_column()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">newcandy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">chemdiff</a></li>
+      <li class="breadcrumb-item active">chemdiff package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/chemdiff.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="chemdiff-package">
+<h1>chemdiff package<a class="headerlink" href="#chemdiff-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-chemdiff.candyio">
+<span id="chemdiff-candyio-module"></span><h2>chemdiff.candyio module<a class="headerlink" href="#module-chemdiff.candyio" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.gather_all_abundances">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">gather_all_abundances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdirr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_subdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#gather_all_abundances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.gather_all_abundances" title="Link to this definition"></a></dt>
+<dd><p>(DEPRECATED) reads in all of the astrochem outputs from a column
+and puts all the output params into a single .npz file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><em>Column</em></a>) – CANDY column</p></li>
+<li><p><strong>outputdirr</strong> (<em>str</em>) – output directory</p></li>
+<li><p><strong>outputfile</strong> (<em>str</em>) – output file</p></li>
+<li><p><strong>tf</strong> (<em>float</em>) – final time of simulation</p></li>
+<li><p><strong>delete_subdir</strong> (<em>bool</em>) – option to delete subdirectories after</p></li>
+<li><p><strong>abundances</strong> (<em>gathering</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.gather_static_abuns">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">gather_static_abuns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdirr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_subdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/candyio.html#gather_static_abuns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.gather_static_abuns" title="Link to this definition"></a></dt>
+<dd><p>Gather outputs from column into single .npz file for a static
+run of CANDY</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><em>Column</em></a>) – CANDY column</p></li>
+<li><p><strong>outputdirr</strong> (<em>str</em>) – output directory</p></li>
+<li><p><strong>outputfile</strong> (<em>str</em>) – output filename</p></li>
+<li><p><strong>tf</strong> (<em>float</em>) – final time from the simulation</p></li>
+<li><p><strong>delete_subdir</strong> (<em>bool</em>) – option to delete subdirectories after</p></li>
+<li><p><strong>file</strong> (<em>creating .npz</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.get_abundict">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">get_abundict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'astrochem_output.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#get_abundict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.get_abundict" title="Link to this definition"></a></dt>
+<dd><p>Create a dictionary of species abundances from an astrochem output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em><em>, </em><em>optional</em>) – astrochem output h5 file. Defaults to ‘astrochem_output.h5’.</p></li>
+<li><p><strong>specs</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>str</em><em>, </em><em>optional</em>) – list of species to include in the output dictionary. Defaults to ‘all’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>array of times and the dictionary of species and abundances</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[np.ndarray, dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.get_defaults">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">get_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#get_defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.get_defaults" title="Link to this definition"></a></dt>
+<dd><p>Returns the default parameters for CANDY run as a tuple of
+dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of dictionaries containing default model params, physical params, and abundances</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[dict, dict, dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.get_final_abuns">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">get_final_abuns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#get_final_abuns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.get_final_abuns" title="Link to this definition"></a></dt>
+<dd><p>Create a dictionary of the species abundances at the last time of the astrochem output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_name</strong> (<em>str</em>) – name of astrochem .h5 file</p></li>
+<li><p><strong>specs</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>str</em><em>, </em><em>optional</em>) – list of species to include. Defaults to ‘all’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of species and abundances</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.get_nh_and_av">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">get_nh_and_av</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#get_nh_and_av"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.get_nh_and_av" title="Link to this definition"></a></dt>
+<dd><p>Read the number denisty of hydrogen and visual extinction from
+the astrochem source file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_file</strong> (<em>str</em>) – name of astrochem source file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>number density of hydrogen and visual extinction</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.get_specs_array">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">get_specs_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputdirr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#get_specs_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.get_specs_array" title="Link to this definition"></a></dt>
+<dd><p>Returns an array of species used from astrochem output. Reads in
+from outputdirr/z00/astrochem_output.h5</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputdirr</strong> (<em>str</em>) – name of output directory</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>array of species names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.get_touts">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">get_touts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#get_touts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.get_touts" title="Link to this definition"></a></dt>
+<dd><p>Create the default list of output times</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tf</strong> (<em>float</em>) – final time to create touts until</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of output times</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.new_save_outputs">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">new_save_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdirr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_subdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#new_save_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.new_save_outputs" title="Link to this definition"></a></dt>
+<dd><p>Save the current abundances of ice and gas into npz file. This
+saves from the memory and accounts for ices lost due to grain growth</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><em>Column</em></a>) – CANDY column of cells</p></li>
+<li><p><strong>nout</strong> (<em>int</em>) – output index</p></li>
+<li><p><strong>time</strong> (<em>float</em>) – the current time</p></li>
+<li><p><strong>outputdirr</strong> (<em>str</em>) – output directory</p></li>
+<li><p><strong>outputfile</strong> (<em>str</em>) – output file name</p></li>
+<li><p><strong>delete_subdir</strong> (<em>bool</em><em>, </em><em>optional</em>) – Delete subdirectories after values are saved. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.parse_list">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">parse_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#parse_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.parse_list" title="Link to this definition"></a></dt>
+<dd><p>Read in a string and convert to a python list. Used to read in
+touts from input file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>str</em>) – list string</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>parsed list</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.read_infile">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">read_infile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#read_infile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.read_infile" title="Link to this definition"></a></dt>
+<dd><p>Reads the input file to create input parameters dictionaries for CANDY</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fin</strong> (<em>str</em>) – name of input file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionaries of model params, physical params, and abundances</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[dict, dict, dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.read_touts_from_file">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">read_touts_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#read_touts_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.read_touts_from_file" title="Link to this definition"></a></dt>
+<dd><p>Helper to read in output times saved in times.out</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – name of file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>array of output times</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.readh5file">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">readh5file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'astrochem_output.h5'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">File</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dataset</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dataset</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dataset</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#readh5file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.readh5file" title="Link to this definition"></a></dt>
+<dd><p>Helper function to read astrochem output and return relevent information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em><em>, </em><em>optional</em>) – name of .h5 file to read. Defaults to ‘astrochem_output.h5’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl>
+<dt>tuple of outputs</dt><dd><p>opened h5.File object (be sure to close this later!)</p>
+<p>list of species from astrochem</p>
+<p>array of abundances for each species over time</p>
+<p>list of times</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[h5.File, dict, dict, dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.save_outputs">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">save_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdirr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#save_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.save_outputs" title="Link to this definition"></a></dt>
+<dd><p>Copy and paste astrochem outputs to store as backup or to continue a run</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><em>Column</em></a>) – CANDY column of cells</p></li>
+<li><p><strong>nout</strong> (<em>int</em>) – the output index</p></li>
+<li><p><strong>outputdirr</strong> (<em>str</em>) – directory where savefiles should be stored</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.candyio.save_pebbles">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.candyio.</span></span><span class="sig-name descname"><span class="pre">save_pebbles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pebcomp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_pebout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/chemdiff/candyio.html#save_pebbles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.candyio.save_pebbles" title="Link to this definition"></a></dt>
+<dd><p>Save the pebble compistion to text file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><em>Column</em></a>) – CANDY column</p></li>
+<li><p><strong>pebcomp</strong> (<em>dict</em>) – dictionary of pebble compositions</p></li>
+<li><p><strong>f_pebout</strong> (<em>str</em>) – name of pebble text file</p></li>
+<li><p><strong>time</strong> (<em>float</em>) – the current time</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chemdiff.cell">
+<span id="chemdiff-cell-module"></span><h2>chemdiff.cell module<a class="headerlink" href="#module-chemdiff.cell" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="chemdiff.cell.Cell">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chemdiff.cell.</span></span><span class="sig-name descname"><span class="pre">Cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cosmic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.3e-17</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grain_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dust_gas_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">av</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tgas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tdust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NCO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NH2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NHD</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abundances</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/cell.html#Cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.cell.Cell" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A cell has:</p>
+<dl class="simple">
+<dt>a physical location</dt><dd><p>r,z</p>
+</dd>
+<dt>physical parameters for the solver</dt><dd><p>chi, cosmic, grain size, dust/gas ratio</p>
+</dd>
+<dt>source model parameters</dt><dd><dl class="simple">
+<dt>given</dt><dd><p>Av, nh, Tgas, Tdust, xrays</p>
+</dd>
+<dt>calculated</dt><dd><p>NCO, NH2, (density)</p>
+</dd>
+</dl>
+</dd>
+<dt>abundances</dt><dd><p>dict of abundances</p>
+</dd>
+<dt>diffusion parameters</dt><dd><dl class="simple">
+<dt>given</dt><dd><p>omega,
+alpha, dz, dt (solver params?)</p>
+</dd>
+<dt>calculated</dt><dd><p>cs, h, D, beta</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="chemdiff.cell.Cell.update_abundances">
+<span class="sig-name descname"><span class="pre">update_abundances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/cell.html#Cell.update_abundances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.cell.Cell.update_abundances" title="Link to this definition"></a></dt>
+<dd><p>Update the abundances of each species in the cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_dict</strong> (<em>dict</em>) – dictionary of new species and abundances</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chemdiff.cell.Cell.write_chem_inputs">
+<span class="sig-name descname"><span class="pre">write_chem_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abun_out</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_net</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'network.chm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'input.ini'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'source.mdl'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/cell.html#Cell.write_chem_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.cell.Cell.write_chem_inputs" title="Link to this definition"></a></dt>
+<dd><p>Write the chmical input and source files for astrochem</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tf</strong> (<em>float</em>) – final time for chemistry</p></li>
+<li><p><strong>abs_err</strong> (<em>float</em>) – absolute error for chemistry. If abundance is less than this set to zero</p></li>
+<li><p><strong>rel_err</strong> (<em>float</em>) – relative error for chemistry</p></li>
+<li><p><strong>abun_out</strong> (<em>str</em><em>, </em><em>optional</em>) – what species to track. Defaults to ‘all’.</p></li>
+<li><p><strong>f_net</strong> (<em>str</em><em>, </em><em>optional</em>) – chemical network to use for chemistry. Defaults to ‘network.chm’.</p></li>
+<li><p><strong>f_input</strong> (<em>str</em><em>, </em><em>optional</em>) – name of input file to write. Defaults to ‘input.ini’.</p></li>
+<li><p><strong>f_source</strong> (<em>str</em><em>, </em><em>optional</em>) – name of source file to write. Defaults to ‘source.mdl’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-chemdiff.chemistry">
+<span id="chemdiff-chemistry-module"></span><h2>chemdiff.chemistry module<a class="headerlink" href="#module-chemdiff.chemistry" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.chemistry.chem_helper">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.chemistry.</span></span><span class="sig-name descname"><span class="pre">chem_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/chemdiff/chemistry.html#chem_helper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.chemistry.chem_helper" title="Link to this definition"></a></dt>
+<dd><p>Helper function to parallelize chemistry calculation. Calls
+Astrochem on a given cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – tuple of arguments from do_chemistry() function</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>update abundance dictionary after chemistry</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.chemistry.do_chemistry">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.chemistry.</span></span><span class="sig-name descname"><span class="pre">do_chemistry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chemtime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_chm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outdirr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/chemdiff/chemistry.html#do_chemistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.chemistry.do_chemistry" title="Link to this definition"></a></dt>
+<dd><p>Setup chem_helper() function to call astrochem in parallel
+using python multiprocessing library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> – Column to do chemistry on</p></li>
+<li><p><strong>chemtime</strong> – Time (in years) over which to do chemistry</p></li>
+<li><p><strong>f_chm</strong> – chm file to use for chemistry</p></li>
+<li><p><strong>outdirr</strong> – output directory</p></li>
+<li><p><strong>abs_err</strong> – absolute and relative errors for chemistry integration</p></li>
+<li><p><strong>rel_err</strong> – absolute and relative errors for chemistry integration</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.chemistry.make_chmfile">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.chemistry.</span></span><span class="sig-name descname"><span class="pre">make_chmfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abuns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/chemdiff/chemistry.html#make_chmfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.chemistry.make_chmfile" title="Link to this definition"></a></dt>
+<dd><p>Make a chm file with each species doing nothing so that their
+abundances are still returned in the output file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abuns</strong> (<em>dict</em>) – dictionary where the keys are species to be included in the do-nothing network</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>name of file created</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chemdiff.column">
+<span id="chemdiff-column-module"></span><h2>chemdiff.column module<a class="headerlink" href="#module-chemdiff.column" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="chemdiff.column.Column">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chemdiff.column.</span></span><span class="sig-name descname"><span class="pre">Column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncells</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/column.html#Column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="chemdiff.column.Column.get_abundance_array">
+<span class="sig-name descname"><span class="pre">get_abundance_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/column.html#Column.get_abundance_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column.get_abundance_array" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chemdiff.column.Column.update_column_densities">
+<span class="sig-name descname"><span class="pre">update_column_densities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/column.html#Column.update_column_densities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column.update_column_densities" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-chemdiff.constants">
+<span id="chemdiff-constants-module"></span><h2>chemdiff.constants module<a class="headerlink" href="#module-chemdiff.constants" title="Link to this heading"></a></h2>
+</section>
+<section id="module-chemdiff.diffusion">
+<span id="chemdiff-diffusion-module"></span><h2>chemdiff.diffusion module<a class="headerlink" href="#module-chemdiff.diffusion" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.diffusion.do_diffusion">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.diffusion.</span></span><span class="sig-name descname"><span class="pre">do_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffdt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/chemdiff/diffusion.html#do_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.diffusion.do_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Do the diffusion between cells in the column</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><em>Column</em></a>) – CANDY Column</p></li>
+<li><p><strong>diffdt</strong> (<em>float</em>) – timestep for the diffusion</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.diffusion.grow_grains">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.diffusion.</span></span><span class="sig-name descname"><span class="pre">grow_grains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffdt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pebcomp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_timescale_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/chemdiff/diffusion.html#grow_grains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.diffusion.grow_grains" title="Link to this definition"></a></dt>
+<dd><p>Grow the grains from the column. Remove ices and grains and update the pebble abundances</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><em>Column</em></a>) – CANDY Column</p></li>
+<li><p><strong>diffdt</strong> (<em>float</em>) – diffusion timestep</p></li>
+<li><p><strong>pebcomp</strong> (<em>dict</em>) – pebble composition dictionary</p></li>
+<li><p><strong>growth_timescale_factor</strong> (<em>float</em>) – growth timescale factor. tau_grow = (this)*1/(epsilon*Omega)</p></li>
+<li><p><strong>growth_height</strong> (<em>float</em>) – scaleheight under which pebbles will grow</p></li>
+<li><p><strong>outputdir</strong> (<em>str</em>) – output directory (unused)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>updated dictionary of pebble abundances</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chemdiff.disk">
+<span id="chemdiff-disk-module"></span><h2>chemdiff.disk module<a class="headerlink" href="#module-chemdiff.disk" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.disk.get_density">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.disk.</span></span><span class="sig-name descname"><span class="pre">get_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/disk.html#get_density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.disk.get_density" title="Link to this definition"></a></dt>
+<dd><p>Return the gas density at a given 2d location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>float</em>) – radial distance [cm]</p></li>
+<li><p><strong>z</strong> (<em>float</em>) – height above midplane [cm]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>gas density [g cm-3]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.disk.get_midplane_temp">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.disk.</span></span><span class="sig-name descname"><span class="pre">get_midplane_temp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/disk.html#get_midplane_temp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.disk.get_midplane_temp" title="Link to this definition"></a></dt>
+<dd><p>Midplane temperature of the disk, following Krijt et al. 2018</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>float</em>) – radial distance [cm]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>midplane temperature [K]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.disk.get_omega">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.disk.</span></span><span class="sig-name descname"><span class="pre">get_omega</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/disk.html#get_omega"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.disk.get_omega" title="Link to this definition"></a></dt>
+<dd><p>Return Keplerian frequency at given radial location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>float</em>) – radial distance [cm]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Keplerian Frequency [s-1]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.disk.get_scaleheight">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.disk.</span></span><span class="sig-name descname"><span class="pre">get_scaleheight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/disk.html#get_scaleheight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.disk.get_scaleheight" title="Link to this definition"></a></dt>
+<dd><p>Return the scaleheight at a given location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>float</em>) – radial distance [cm]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>scaleheight [cm]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.disk.get_soundspeed">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.disk.</span></span><span class="sig-name descname"><span class="pre">get_soundspeed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/disk.html#get_soundspeed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.disk.get_soundspeed" title="Link to this definition"></a></dt>
+<dd><p>Return the soundspeed at a given location in the disk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>float</em>) – radial distance [cm]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>soundspeed [cm/s]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.disk.get_surface_density">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.disk.</span></span><span class="sig-name descname"><span class="pre">get_surface_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/disk.html#get_surface_density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.disk.get_surface_density" title="Link to this definition"></a></dt>
+<dd><p>Surface density at a given location in the disk following a powerlaw. Assumes disk is 0.05Msun in mass, and edge of disk is at 100 AU. Power law slope of -1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>float</em>) – radial distance [cm]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Surface density, Sigma(r) [g cm-2]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.disk.get_temperature">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.disk.</span></span><span class="sig-name descname"><span class="pre">get_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/disk.html#get_temperature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.disk.get_temperature" title="Link to this definition"></a></dt>
+<dd><p>Get the temperature at a given 2d location for an irradiated disk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>float</em>) – radial distance [cm]</p></li>
+<li><p><strong>z</strong> (<em>float</em>) – height above midplane [cm]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Disk Temperature [K]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chemdiff.plotting">
+<span id="chemdiff-plotting-module"></span><h2>chemdiff.plotting module<a class="headerlink" href="#module-chemdiff.plotting" title="Link to this heading"></a></h2>
+</section>
+<section id="module-chemdiff.utils">
+<span id="chemdiff-utils-module"></span><h2>chemdiff.utils module<a class="headerlink" href="#module-chemdiff.utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.utils.dg2grain_abun">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.utils.</span></span><span class="sig-name descname"><span class="pre">dg2grain_abun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grain_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grain_density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.81</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/utils.html#dg2grain_abun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.utils.dg2grain_abun" title="Link to this definition"></a></dt>
+<dd><p>Convert dust-to-gas mass ratio to a grain abundance</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.utils.grain_abun2dg">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.utils.</span></span><span class="sig-name descname"><span class="pre">grain_abun2dg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grain_abun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grain_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grain_density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.81</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/chemdiff/utils.html#grain_abun2dg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.utils.grain_abun2dg" title="Link to this definition"></a></dt>
+<dd><p>Convert grain abundance to a dust-to-gas mass ratio</p>
+</dd></dl>
+
+</section>
+<section id="module-chemdiff">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-chemdiff" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.create_cell">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.</span></span><span class="sig-name descname"><span class="pre">create_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#chemdiff.cell.Cell" title="chemdiff.cell.Cell"><span class="pre">Cell</span></a></span></span><a class="reference internal" href="_modules/chemdiff.html#create_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.create_cell" title="Link to this definition"></a></dt>
+<dd><p>Create a cell object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> – radial location in cm</p></li>
+<li><p><strong>z</strong> – elevation of cell in cm</p></li>
+<li><p><strong>kwargs</strong> – key word arguments to pass onto cell.Cell object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#chemdiff.cell.Cell" title="chemdiff.cell.Cell">Cell</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chemdiff.create_column">
+<span class="sig-prename descclassname"><span class="pre">chemdiff.</span></span><span class="sig-name descname"><span class="pre">create_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncells</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column"><span class="pre">Column</span></a></span></span><a class="reference internal" href="_modules/chemdiff.html#create_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.create_column" title="Link to this definition"></a></dt>
+<dd><p>Create a Column object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> – radial location of column in cm</p></li>
+<li><p><strong>alpha</strong> – turbulent alpha parameter</p></li>
+<li><p><strong>ncells</strong> – number of cells in the column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#chemdiff.column.Column" title="chemdiff.column.Column">Column</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="chemdiff" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Eric Van Clepper.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

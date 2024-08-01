@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candy &mdash; newcandy 1.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fd7cadf9"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="chemdiff" href="modules.html" />
+    <link rel="prev" title="newcandy documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            newcandy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Candy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#about">About</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-requirements">Installation and Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quickstart">Quickstart</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#static-runs">Static runs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diffusive-runs">Diffusive runs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#growth-runs">Growth runs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#continuing-a-run">Continuing a run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#input-parameters">Input parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phys">Phys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#abundances">Abundances</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#output-files">Output files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#outfile">outfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pebble-composition">Pebble composition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#astrochem-changes">Astrochem Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reaction-types">Reaction types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#chemdiff">chemdiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bugs">Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changelog">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">chemdiff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">newcandy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Candy</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="candy">
+<h1>Candy<a class="headerlink" href="#candy" title="Link to this heading"></a></h1>
+<p>Chemistry ANd DYnamics in protoplanetary disks</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#candy">Candy</a></p>
+<ul>
+<li><p><a class="reference external" href="#about">About</a></p></li>
+<li><p><a class="reference external" href="#installation-and-requirements">Installation and Requirements</a></p></li>
+<li><p><a class="reference external" href="#quickstart">Quickstart</a></p>
+<ul>
+<li><p><a class="reference external" href="#static-runs">Static runs</a></p></li>
+<li><p><a class="reference external" href="#diffusive-runs">Diffusive runs</a></p></li>
+<li><p><a class="reference external" href="#growth-runs">Growth runs</a></p></li>
+<li><p><a class="reference external" href="#continuing-a-run">Continuing a run</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#input-parameters">Input parameters</a></p>
+<ul>
+<li><p><a class="reference external" href="#model">Model</a></p></li>
+<li><p><a class="reference external" href="#phys">Phys</a></p></li>
+<li><p><a class="reference external" href="#abundances">Abundances</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#output-files">Output files</a></p>
+<ul>
+<li><p><a class="reference external" href="#outfile">outfile</a></p></li>
+<li><p><a class="reference external" href="#pebble-composition">Pebble composition</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#astrochem-changes">Astrochem Changes</a></p>
+<ul>
+<li><p><a class="reference external" href="#reaction-types">Reaction types</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#chemdiff">chemdiff</a></p></li>
+<li><p><a class="reference external" href="#bugs">Bugs</a></p></li>
+<li><p><a class="reference external" href="#changelog">Changelog</a></p></li>
+</ul>
+</li>
+</ul>
+<section id="about">
+<h2>About<a class="headerlink" href="#about" title="Link to this heading"></a></h2>
+<p>CANDY (Chemistry ANd DYnamics) is a protoplanetary disk model for
+determining the time-dependent chemistry and a 1D vertical slice of a
+dynamic disk. CANDY includes chemistry, vertical diffusion, pebble
+growth, and ice sequestration. Details of the model are given in <a class="reference external" href="https://iopscience.iop.org/article/10.3847/1538-4357/ac511b">Van
+Clepper et
+al. 2022</a>.</p>
+<p>CANDY contains two submodules, a modified astrochem (<a class="reference external" href="http://ascl.net/1507.010">Maret &amp; Bergin
+2015</a>) directory and the chemdiff
+directory, where the python wrapper is contained. CANDY works by
+iteratively switching between chemistry and dynamics for a vertical
+Column at a given location in a protoplanetary disk. The column is split
+into adjacent cells, within which the chemical and physical properties
+are assumed to be constant. Each is allowed to evolve chemically
+independently for some period of time before gas and ice species diffuse
+vertically through the disk between adjacent cells. Meanwhile, small
+grains grow into larger pebbles, removing ice species from the active
+chemistry.</p>
+</section>
+<section id="installation-and-requirements">
+<h2>Installation and Requirements<a class="headerlink" href="#installation-and-requirements" title="Link to this heading"></a></h2>
+<p>Astrochem dependencies are given in the astrochem wiki, while chemdiff
+dependencies include openmpi and mpi4py. Recommended installation is
+using conda to create a virtual environment with all dependencies. A new
+environment can be created with all needed dependencies with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">newcandy</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">sundials</span><span class="o">=</span><span class="mf">5.7.0</span> <span class="n">python</span> <span class="n">cython</span> <span class="n">numpy</span> <span class="n">matplotlib</span> <span class="n">h5py</span> <span class="n">autoconf</span> <span class="n">automake</span> <span class="n">libtool</span> <span class="n">mpi4py</span> <span class="n">openmpi</span>
+</pre></div>
+</div>
+<p>Active the enviornment with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">newcandy</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">activate</span> <span class="n">newcandy</span>
+</pre></div>
+</div>
+<p>To compile Astrochem run the following commands <em>from the Astrochem
+subdirectory</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./bootstrap
+./configure CPPFLAGS=&quot;-I$CONDA_PREFIX/include&quot; LDFLAGS=&quot;-Wl,-rpath,$CONDA_PREFIX/lib -L/$CONDA_PREFIX/lib&quot;  --prefix=$CONDA_PREFIX
+make
+make install
+</pre></div>
+</div>
+<p>Because candy.py is run from the parent directory, there is no need to
+adjust your python path!</p>
+</section>
+<section id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h2>
+<p>To run candy, simply run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">candy</span><span class="o">.</span><span class="n">py</span> <span class="n">examples</span><span class="o">/</span><span class="n">growth_example</span><span class="o">/</span><span class="n">growth_example</span><span class="o">.</span><span class="n">ini</span>
+</pre></div>
+</div>
+<p>from the command line, where growth_example.ini is the input file you
+wish to use.</p>
+<section id="static-runs">
+<h3>Static runs<a class="headerlink" href="#static-runs" title="Link to this heading"></a></h3>
+<p>In a static candy run, there is no diffusion nor is there any grain
+growth.</p>
+<p>To set up a static run of candy, set</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">difftime</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>in the model parameters of the input file. Additionally, the
+<code class="docutils literal notranslate"><span class="pre">chemtime</span></code> and <code class="docutils literal notranslate"><span class="pre">tf</span></code> parameters must be set equal to one another.
+This is because in a static run, chemistry is called only once per cell.
+To avoid ambiguity in how long to run chemistry for, these parameters
+should be the same.</p>
+</section>
+<section id="diffusive-runs">
+<h3>Diffusive runs<a class="headerlink" href="#diffusive-runs" title="Link to this heading"></a></h3>
+<p>In a diffusive run, there is diffusion of material throughout the
+column, but grains do not grow into pebbles. This can be done by setting
+the <code class="docutils literal notranslate"><span class="pre">difftime</span></code> and <code class="docutils literal notranslate"><span class="pre">chemtime</span></code> model parameters, but the physical
+parameter <code class="docutils literal notranslate"><span class="pre">growth_height</span></code> should be set to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">growth_height</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>This sets the height below which pebbles will grow to 0, shutting off
+any pebble growth.</p>
+<p><em>Note:</em> for diffusive and growth runs, diffusion is the time limiting
+step. Therefore we must have</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">difftime</span> <span class="o">&lt;=</span> <span class="n">chemtime</span> <span class="o">&lt;=</span> <span class="n">tf</span>
+</pre></div>
+</div>
+</section>
+<section id="growth-runs">
+<h3>Growth runs<a class="headerlink" href="#growth-runs" title="Link to this heading"></a></h3>
+<p>A growth run contains diffusion and pebble growth (and is the default
+setup for CANDY). The <code class="docutils literal notranslate"><span class="pre">growth_height</span></code> parameter sets the height (in
+disk scaleheight) below which pebbles will grow. Any <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+<code class="docutils literal notranslate"><span class="pre">growth_height</span></code> &gt; 0 will result in pebble growth. The resulting pebble
+composition is saved in the <code class="docutils literal notranslate"><span class="pre">pebfile</span></code> (default: <code class="docutils literal notranslate"><span class="pre">pebcomp.out</span></code>) in
+the <code class="docutils literal notranslate"><span class="pre">outputdir</span></code> directory.</p>
+<p>Pebble compositions are stored normalized to the column density of
+hydrogen, with units of cm<span class="math notranslate nohighlight">\(^{-2}\)</span>.</p>
+</section>
+<section id="continuing-a-run">
+<h3>Continuing a run<a class="headerlink" href="#continuing-a-run" title="Link to this heading"></a></h3>
+<p><em>(&gt;= v1.2.0)</em> If a run of candy is stopped for any reason, the run can
+be continued using the <code class="docutils literal notranslate"><span class="pre">-C</span></code> or <code class="docutils literal notranslate"><span class="pre">--Continue</span></code> flag followed by the
+number of the output to continue from. For example, to continue a run
+from the 8th output, call</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">candy</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">C</span> <span class="mi">8</span> <span class="n">examples</span><span class="o">/</span><span class="n">growth_example</span><span class="o">/</span><span class="n">growth_example</span><span class="o">.</span><span class="n">ini</span>
+</pre></div>
+</div>
+<p>from the command line. This will start the run using abundances from
+outputs ending in <code class="docutils literal notranslate"><span class="pre">_t8</span></code> at the time <code class="docutils literal notranslate"><span class="pre">touts[8]</span></code></p>
+</section>
+</section>
+<section id="input-parameters">
+<h2>Input parameters<a class="headerlink" href="#input-parameters" title="Link to this heading"></a></h2>
+<p>Input files for CANDY are split into three sections: model inputs
+<code class="docutils literal notranslate"><span class="pre">[model]</span></code> which controls solver parameters, physical inputs <code class="docutils literal notranslate"><span class="pre">[phys]</span></code>
+which sets the relevent physical values for chemistry, and the molecular
+abundances <code class="docutils literal notranslate"><span class="pre">[abundances]</span></code>, which sets the intial abundances of each
+chemical species in the cells.</p>
+<p>Any parameters that are not explicitly set in the input file will use
+the default values.</p>
+<p><em>Note:</em> Any relative paths to files are always from the parent directory
+(where <code class="docutils literal notranslate"><span class="pre">candy.py</span></code> is located). For example, if you had an input file
+in an input directory (say <code class="docutils literal notranslate"><span class="pre">newcandy/inputs/candyinput.ini</span></code>), the path
+to the chmfile will be relative to the <code class="docutils literal notranslate"><span class="pre">newcandy</span></code> directory. Output
+files will automatically be placed into the output directory
+<code class="docutils literal notranslate"><span class="pre">outputdir</span></code>.</p>
+<p>The chmfile path should always be relative to the newcandy home
+directory. Optionally, you can set <code class="docutils literal notranslate"><span class="pre">chmfile</span> <span class="pre">=</span> <span class="pre">None</span></code> to setup a run
+with no active chemistry.</p>
+<section id="model">
+<h3>Model<a class="headerlink" href="#model" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>chmfile</p>
+<ul>
+<li><p>Chemical network file to be used by astrochem. <em>Default:</em>
+astrochem/networks/umist12_x.chm</p></li>
+</ul>
+</li>
+<li><p>pebfile</p>
+<ul>
+<li><p>name of file where pebble compositions will be stored. <em>Default:</em>
+pebcomp.out</p></li>
+</ul>
+</li>
+<li><p>ti</p>
+<ul>
+<li><p>Start time of candy integration in years. <em>Default:</em> 0</p></li>
+</ul>
+</li>
+<li><p>tf</p>
+<ul>
+<li><p>End time of the candy integration in years. <em>Default:</em> 1.0e6</p></li>
+</ul>
+</li>
+<li><p>ncells</p>
+<ul>
+<li><p>Number of cells to split the column into. <em>Default:</em> 50</p></li>
+</ul>
+</li>
+<li><p>chemtime</p>
+<ul>
+<li><p>Maximum time in years to run chemistry in each cell before
+diffusion. <em>Default:</em> 500</p></li>
+</ul>
+</li>
+<li><p>difftime</p>
+<ul>
+<li><p>Maximum timestep for diffusion between cells and pebble growth.
+<em>Default:</em> 100</p></li>
+</ul>
+</li>
+<li><p>touts</p>
+<ul>
+<li><p>list of output times in years for the simulation (if diffusive or
+growth run). If not supplied, default output times are generated
+semi-logarithmically based on ti and tf (touts = [1e3, 2e3, 3e3,…,
+1e4, 2e4, 3e4,…, 1e5, 1.5e5, 2e5,…, tf]) <em>Note: touts must be
+strictly greater than 0 (see</em> <a class="reference external" href="#bugs">Known Bugs</a><em>)</em></p></li>
+</ul>
+</li>
+<li><p>outputdir</p>
+<ul>
+<li><p>Output directory where output files will be stored (trailing <code class="docutils literal notranslate"><span class="pre">/</span></code>
+is not needed, this is always interpreted as a directory).
+<em>Default:</em> r00</p></li>
+</ul>
+</li>
+<li><p>outfile</p>
+<ul>
+<li><p>Name of npz file where all outputs will be saved. <em>Default:</em>
+output_abuns.npz</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="phys">
+<h3>Phys<a class="headerlink" href="#phys" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>r</p>
+<ul>
+<li><p>radial location of integration. <em>Default:</em> 30</p></li>
+</ul>
+</li>
+<li><p>r_units</p>
+<ul>
+<li><p>units of radius, options are ‘au’ or ‘cm’. <em>Default:</em> au</p></li>
+</ul>
+</li>
+<li><p>alpha</p>
+<ul>
+<li><p>Alpha viscosity parameter of the disk. <em>Default:</em> 1.0e-3</p></li>
+</ul>
+</li>
+<li><p>chi</p>
+<ul>
+<li><p>external UV radiation field strength in Draine Units. <em>Default:</em>
+50</p></li>
+</ul>
+</li>
+<li><p>cosmic</p>
+<ul>
+<li><p>Cosmic ionization rate in <span class="math notranslate nohighlight">\(\mathrm{s}^{-1}\)</span>. <em>Default:</em>
+1.3e-17</p></li>
+</ul>
+</li>
+<li><p>grain_size</p>
+<ul>
+<li><p>size of solid grains in microns. <em>Default:</em> 0.1</p></li>
+</ul>
+</li>
+<li><p>dg0</p>
+<ul>
+<li><p>Initial dust-to-gas mass ratio. <em>Default:</em> 0.01</p></li>
+</ul>
+</li>
+<li><p>opacity</p>
+<ul>
+<li><p>The UV opacity of the dust in
+<span class="math notranslate nohighlight">\(\mathrm{cm}^2\mathrm{g}^{-1}\)</span>. <em>Default:</em> 1.0e5</p></li>
+</ul>
+</li>
+<li><p>growth_timescale_factor</p>
+<ul>
+<li><p>Sets the timescale of growth for small grains into large pebbles.
+The growth timescale is defined as
+<span class="math notranslate nohighlight">\(\tau_\mathrm{grow} = a/\Omega\epsilon\)</span>, where a is the
+growth_timescale_factor. <em>Default:</em> 1</p></li>
+</ul>
+</li>
+<li><p>growth_height</p>
+<ul>
+<li><p>Scaleheights below which pebbles will form. <em>Default:</em> 1</p></li>
+</ul>
+</li>
+<li><p>growth_delay_time</p>
+<ul>
+<li><p>Time in years to wait before beginning pebble growth. Grains and
+ice will grow into pebbles when time &gt;= growth_delay_time.
+<em>Default:</em> 0</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="abundances">
+<h3>Abundances<a class="headerlink" href="#abundances" title="Link to this heading"></a></h3>
+<p>The initial abundances of each molecular species. Abundances are assumed
+to be constant throughout the column intially, default abundances are
+the same as listed in table 1 of Van Clepper et al. 2022, reproduced
+below:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Molecule</p></th>
+<th class="head"><p>Abundance</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathrm{H}_2\)</span></p></td>
+<td><p>5.00(-1)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathrm{He}\)</span></p></td>
+<td><p>9.75(-2)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathrm{NH}_3\)</span></p></td>
+<td><p>1.45(-6)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathrm{H}_2\mathrm{O}\)</span></p></td>
+<td><p>1.18(-4)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathrm{CO}\)</span></p></td>
+<td><p>6.00(-5)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathrm{N}_2\)</span></p></td>
+<td><p>2.00(-5)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathrm{CH}_4\)</span></p></td>
+<td><p>2.00(-6)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathrm{CH}_3\mathrm{OH}\)</span></p></td>
+<td><p>1.00(-6)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathrm{H}_2\mathrm{S}\)</span></p></td>
+<td><p>1.91(-8)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathrm{CO}_2\)</span></p></td>
+<td><p>5.00(-5)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathrm{HCN}\)</span></p></td>
+<td><p>3.50(-7)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathrm{grain}\)</span></p></td>
+<td><p>2.20(-12)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="output-files">
+<h2>Output files<a class="headerlink" href="#output-files" title="Link to this heading"></a></h2>
+<p>As candy runs, it will create subdirectories named <code class="docutils literal notranslate"><span class="pre">z00/</span></code>, <code class="docutils literal notranslate"><span class="pre">z01/</span></code>,
+etc… for each cell in the Column. Within each of these folders will be
+<code class="docutils literal notranslate"><span class="pre">astrochem_output</span></code> HDF5 files for each output time from the
+simulation. The default behavior is for these many files to be deleted
+at the end of the CANDY run, and all of the outputs are gathered into
+one <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file. CANDY also creates two plain text files: the pebble
+composition (default <code class="docutils literal notranslate"><span class="pre">pebcomp.out</span></code>) and output times, <code class="docutils literal notranslate"><span class="pre">times.out</span></code>.</p>
+<section id="outfile">
+<h3>outfile<a class="headerlink" href="#outfile" title="Link to this heading"></a></h3>
+<p>The main output file, outfile in the <a class="reference external" href="#model">model parameters</a>, is
+saved as a zipped, uncompressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file. This file can be opened
+in Python, by importing the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package and using the
+<code class="docutils literal notranslate"><span class="pre">np.load()</span></code> function (see documentation
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load">here</a>).
+For the default outfile name of ‘output_abuns’, the file could be loaded
+as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">cdout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;output_abuns.npz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This returns an NpzFile object, containing the saved numpy arrays that
+are output from CANDY. The available array names can be found by
+accessing the <code class="docutils literal notranslate"><span class="pre">files</span></code> property</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cdout</span><span class="o">.</span><span class="n">files</span>
+<span class="c1"># out: [&#39;times&#39;, &#39;species&#39;, &#39;abundances&#39;, &#39;heights&#39;, &#39;density&#39;, &#39;extinctions&#39;]</span>
+</pre></div>
+</div>
+<p>These arrays can be indexed similar to a python dictionary, using square
+brackets. For example, ‘times’ contains a list of output times.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">cdout</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">]</span>
+<span class="n">times</span>
+<span class="c1"># out: array([  100.,   200.,   500.,  1000.,  2000.,  5000., 10000.])</span>
+</pre></div>
+</div>
+<p>The different arrays have different shapes dependant on which dimension
+they vary. For an output with <code class="docutils literal notranslate"><span class="pre">nt</span></code> times, <code class="docutils literal notranslate"><span class="pre">nz</span></code> cells, and <code class="docutils literal notranslate"><span class="pre">nspec</span></code>
+species, the outputs are as follows:</p>
+<ul class="simple">
+<li><p>times: <em>1D array, shape=(nt,)</em></p>
+<ul>
+<li><p>Output times in years.</p></li>
+</ul>
+</li>
+<li><p>species: <em>1D array, shape=(nspec,)</em></p>
+<ul>
+<li><p>List of all species considered in the network.</p></li>
+</ul>
+</li>
+<li><p>abundances: <em>3D array, shape=(nt, nz, nspec)</em></p>
+<ul>
+<li><p>Abundances relative to hydrogen of all species, at all heights and
+all times.</p></li>
+</ul>
+</li>
+<li><p>heights: <em>1D array, shape=(nz,)</em></p>
+<ul>
+<li><p>The elevation above the midplane at the center of each cell in cm.</p></li>
+</ul>
+</li>
+<li><p>density: <em>1D array, shape=(nz,)</em></p>
+<ul>
+<li><p>The number density of hydrogen in a given cell in
+<span class="math notranslate nohighlight">\(\mathrm{cm}^{-3}\)</span>.</p></li>
+</ul>
+</li>
+<li><p>extinctions: <em>2D array, shape=(nt, nz)</em></p>
+<ul>
+<li><p>The visual extinction, <span class="math notranslate nohighlight">\(A_v\)</span> of a given cell at a given
+time. Convert to the UV optical depth using the relation
+<span class="math notranslate nohighlight">\(A_v = \tau_{UV}/3.02\)</span></p></li>
+</ul>
+</li>
+</ul>
+<p>See below for a (quick) example of how to read abundances, this is also
+demonstrated in an example in the <code class="docutils literal notranslate"><span class="pre">plot_results.py</span></code> plotting script.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># load data</span>
+<span class="n">cdout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;examples/growth_example/output_abuns.npz&#39;</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">cdout</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">]</span>
+<span class="n">specs</span> <span class="o">=</span> <span class="n">cdout</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span>
+<span class="n">abuns</span> <span class="o">=</span> <span class="n">cdout</span><span class="p">[</span><span class="s1">&#39;abundances&#39;</span><span class="p">]</span>
+<span class="n">elevs</span> <span class="o">=</span> <span class="n">cdout</span><span class="p">[</span><span class="s1">&#39;heights&#39;</span><span class="p">]</span>
+<span class="c1"># Say we want to find the midplane abundance of H2O ice after 1000 years of evolution</span>
+<span class="c1"># find the correct indices using np.where() function</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">times</span> <span class="o">==</span> <span class="mi">1000</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>       <span class="c1"># time = 1000 years</span>
+<span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>                                   <span class="c1"># midplane, cell index = 0</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">specs</span> <span class="o">==</span> <span class="s1">&#39;grainH2O&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># species index of water ice</span>
+<span class="n">abuns</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
+<span class="c1"># out: 1.6693156020606896e-05</span>
+</pre></div>
+</div>
+</section>
+<section id="pebble-composition">
+<h3>Pebble composition<a class="headerlink" href="#pebble-composition" title="Link to this heading"></a></h3>
+<p>The pebble composition file is saved as plain text, default name
+<code class="docutils literal notranslate"><span class="pre">pebcomp.out</span></code>. This file keeps track of the ice species that are
+sequestered away from the active chemistry on the mantle of growing
+pebbles. The abundances of each ice species are normalized to the column
+density of hydrogen, rather than the number density of hydrogen. This is
+because the entire column will only have <em>one</em> reservoir of pebbles. The
+routine for removing ice is in the <code class="docutils literal notranslate"><span class="pre">grow_grains()</span></code> function in the
+<code class="docutils literal notranslate"><span class="pre">chemdiff/diffusion.py</span></code> module, and this is written to the pebcomp.out
+file in the <code class="docutils literal notranslate"><span class="pre">save_pebbles()</span></code> function in <code class="docutils literal notranslate"><span class="pre">chemdiff/candyio.py</span></code>.</p>
+<p>The pebble composition file has three columns, the first is the time of
+the output in years, second the name of the ice species, and the third
+the normalized abundance.</p>
+</section>
+</section>
+<section id="astrochem-changes">
+<h2>Astrochem Changes<a class="headerlink" href="#astrochem-changes" title="Link to this heading"></a></h2>
+<p>The astrochem folder is copied from the
+<a class="reference external" href="https://github.com/smaret/astrochem">astrochem</a> github page,
+complete with documentation and installation instructions. Changes have
+been made within the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder, and Astrochem can be installed as
+usual. If you already have astrochem installed on your machine, you can
+simply copy the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder from here into your astrochem directory
+(replacing the default astrochem/src folder), then reinstall as usual.</p>
+<p>All of the chemical rate reactions are calculated in the <code class="docutils literal notranslate"><span class="pre">rate()</span></code>
+function in <code class="docutils literal notranslate"><span class="pre">astrochem/src/rates.c</span></code> (line 226). The function takes in
+the alpha, beta, and gamma parameters in addition to the reaction type
+from the chemical network file for each reaction. The rates also depend
+on the physical parameters, including column densities, temperature,
+extinction, and ice abundances.</p>
+<section id="reaction-types">
+<h3>Reaction types<a class="headerlink" href="#reaction-types" title="Link to this heading"></a></h3>
+<p>A full list of chemical reactions and their associated types considered
+in the expanded astrochem is included below</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>description</p></th>
+<th class="head"><p>reacno</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Electron-grain recombination</p></td>
+<td><p>-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>H2 formation on grains</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>HD formation on grains</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cosmic-ray ionization</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>General, two body reactions</p></td>
+<td><p>2-12</p></td>
+</tr>
+<tr class="row-odd"><td><p>Photo-ionizationa and dissociation</p></td>
+<td><p>13</p></td>
+</tr>
+<tr class="row-even"><td><p>Shielded dissociation of H2</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shielded dissociation of HD</p></td>
+<td><p>114</p></td>
+</tr>
+<tr class="row-even"><td><p>Shielded photo-ionization of C</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shielded dissociation of C16O</p></td>
+<td><p>16</p></td>
+</tr>
+<tr class="row-even"><td><p>Shielded dissociation of C17O</p></td>
+<td><p>17</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shielded dissociation of C18O</p></td>
+<td><p>18</p></td>
+</tr>
+<tr class="row-even"><td><p>Freezeout onto grains</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thermal desorption</p></td>
+<td><p>21</p></td>
+</tr>
+<tr class="row-even"><td><p>Cosmic-ray desorption</p></td>
+<td><p>22</p></td>
+</tr>
+<tr class="row-odd"><td><p>Photo-desorption</p></td>
+<td><p>23</p></td>
+</tr>
+<tr class="row-even"><td><p>Hydrogenation</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cosmic-ray induced reactions</p></td>
+<td><p>41</p></td>
+</tr>
+<tr class="row-even"><td><p>Cosmic-ray desorption of CO</p></td>
+<td><p>42</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cosmic-ray reactions involving He</p></td>
+<td><p>43</p></td>
+</tr>
+<tr class="row-even"><td><p>secondary xray ionization of … H</p></td>
+<td><p>60</p></td>
+</tr>
+<tr class="row-odd"><td><p>… H2</p></td>
+<td><p>61</p></td>
+</tr>
+<tr class="row-even"><td><p>… other molecules</p></td>
+<td><p>62</p></td>
+</tr>
+<tr class="row-odd"><td><p>Photoelectron production from PAH</p></td>
+<td><p>70</p></td>
+</tr>
+<tr class="row-even"><td><p>Charge exchange with PAH</p></td>
+<td><p>71</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alternate charge exchange with PAH</p></td>
+<td><p>72</p></td>
+</tr>
+<tr class="row-even"><td><p>creation of excited H2</p></td>
+<td><p>90</p></td>
+</tr>
+<tr class="row-odd"><td><p>de-excitation of H2</p></td>
+<td><p>91</p></td>
+</tr>
+<tr class="row-even"><td><p>reactions with excited H2</p></td>
+<td><p>92</p></td>
+</tr>
+</tbody>
+</table>
+<p>Some reaction rate calculations are also adjusted to be more similar to
+the DALI calculations (Burderer et al 2012). A full description of the
+handling of the chemical calculations is in the appendix of Van Clepper
+et al. 2022.</p>
+</section>
+</section>
+<section id="chemdiff">
+<h2>chemdiff<a class="headerlink" href="#chemdiff" title="Link to this heading"></a></h2>
+<p>The python wrapper for for running astroCHEM with DIFFusion. This is
+entirely written in python, and successively calls <code class="docutils literal notranslate"><span class="pre">astrochem</span></code> in
+parallel at different vertical locations ranging from disk midplane to 5
+scale heights. Input parameters are readin from custom <code class="docutils literal notranslate"><span class="pre">.ini</span></code> files –
+examples have been provided for growth, static, and diffusion setups.</p>
+<p>The chemdiff directory contains all of the python modules. Of particular
+interest: - <code class="docutils literal notranslate"><span class="pre">chemistry.py</span></code> - Calls astrochem in parallel for each of
+the cells. - <code class="docutils literal notranslate"><span class="pre">diffusion.py</span></code> - Diffuses species between cells and
+contains grain growth functions. - <code class="docutils literal notranslate"><span class="pre">disk.py</span></code> - Contains the disk
+parameters, including surface density and temperature profiles. -
+<code class="docutils literal notranslate"><span class="pre">utils.py</span></code> - Contains miscellanious, possibly useful, functions for
+analysis.</p>
+</section>
+<section id="bugs">
+<h2>Bugs<a class="headerlink" href="#bugs" title="Link to this heading"></a></h2>
+<p>If you find a bug please let me know via email or provide a pull request
+to fix the issue! Below are some of the known bugs that I am planning to
+fix, but haven’t yet.</p>
+<ul>
+<li><p>KeyError: ‘grain’</p>
+<ul class="simple">
+<li><p>This error can arise if the species ‘grain’ is not included
+somewhere in the network file. If ‘grain’ is not in the network
+file, then the abundance of that species is not returned, and
+candy loses track of the proper grain abundance. This can be fixed
+by appending a reaction where ‘grain’ is present but does nothing.
+For example:</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">grain</span> <span class="pre">-&gt;</span> <span class="pre">grain</span>&#160;&#160;&#160; <span class="pre">0.00e+00</span>&#160; <span class="pre">0.00e+00</span>&#160; <span class="pre">0.00e+00</span>&#160; <span class="pre">2</span>&#160; <span class="pre">6830</span></code></p>
+</li>
+<li><p>tout = 0</p>
+<ul class="simple">
+<li><p>touts listed must be strictly greater than 0, otherwise astrochem
+will attempt to run for zero years resulting in an error.</p></li>
+</ul>
+</li>
+<li><p>oserror: unable to synchronously open file</p>
+<ul class="simple">
+<li><p>This error typically means a .h5 file is corrupted, generally this
+means that there was an issue with running astrochem, and so the
+astrochem_output.h5 file cannot be read. To troubleshoot this, I
+recommend cd into outdir/z00 and manually calling astrochem on the
+input.ini file that is generated by candy.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="changelog">
+<h2>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h2>
+<p>Below is a list of versions and any changes made between successive
+versions. It is always recommended to use the most recent version when
+possible. - 1.2.0 + Include option to continue previous run using <code class="docutils literal notranslate"><span class="pre">-C</span></code>
+or <code class="docutils literal notranslate"><span class="pre">--Continue</span></code> flags + 1.2.1 * fixed bug when checking for if grain
+is defined in init_abuns + 1.2.2 + fixed bug with double counting ice
+between astrochem output and pebble abundances</p>
+<ul class="simple">
+<li><p>1.1.0</p>
+<ul>
+<li><p>Grain abun &lt;-&gt; dust-to-gas ratio functions now take grain_size in
+microns as second argument</p></li>
+<li><p>Include warnings for initial grain abundance and compare with
+initial dust-to-gas ratio</p></li>
+<li><p>Print the current version at start of the run</p></li>
+</ul>
+</li>
+<li><p>1.0.0</p>
+<ul>
+<li><p>Initial version, major changes from CANDY</p></li>
+</ul>
+</li>
+</ul>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>The <code class="docutils literal notranslate"><span class="pre">growth_height</span></code> must be larger than the z-value of the lowest
+cell in the column. The column is 5 scaleheights tall, split between
+<code class="docutils literal notranslate"><span class="pre">ncells</span></code> cells. Cell z-values are stored for the center of each
+cell, so <code class="docutils literal notranslate"><span class="pre">growth_height</span></code> must be above <span class="math notranslate nohighlight">\(0.5*5/\)</span> <code class="docutils literal notranslate"><span class="pre">ncells</span></code>.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="newcandy documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="chemdiff" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Eric Van Clepper.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -6,7 +6,15 @@ import h5py as h5
 
 from .column import Column
 
-def get_touts(tf):
+def get_touts(tf: float) -> list[float]:
+    """Create the default list of output times
+
+    Args:
+        tf (float): final time to create touts until
+
+    Returns:
+        list[float]: list of output times
+    """
     touts = []
     base = 1.0
     exp = 3
@@ -26,12 +34,27 @@ def get_touts(tf):
     return touts
 
 def parse_list(s: str) -> list:
+    """Read in a string and convert to a python list. Used to read in
+    touts from input file.
+
+    Args:
+        s (str): list string
+
+    Returns:
+        list: parsed list
+    """
     assert s.startswith('[') and s.endswith(']'), "touts format must be as a list with square brackets"
     ts = list(map(float,s[1:-1].split(',')))
     return ts
 
 
-def get_defaults():
+def get_defaults() -> tuple[dict, dict, dict]:
+    """Returns the default parameters for CANDY run as a tuple of
+    dictionaries.
+
+    Returns:
+        tuple[dict, dict, dict]: tuple of dictionaries containing default model params, physical params, and abundances
+    """
     # default model parameters
     model_inputs = {
         'chmfile' : 'astrochem/networks/umist12_x.chm',
@@ -76,7 +99,15 @@ def get_defaults():
     }
     return model_inputs,phys_inputs,abundances
 
-def read_infile(fin):
+def read_infile(fin: str) -> tuple[dict, dict, dict]:
+    """Reads the input file to create input parameters dictionaries for CANDY
+
+    Args:
+        fin (str): name of input file
+
+    Returns:
+        tuple[dict, dict, dict]: dictionaries of model params, physical params, and abundances
+    """
     config = configparser.ConfigParser()
     # the next line retains case sesnitivity for input parameters
     config.optionxform = str
@@ -114,6 +145,13 @@ def read_infile(fin):
     return model,phys,abuns
 
 def save_outputs(col: Column, nout: int, outputdirr: str) -> None:
+    """Copy and paste astrochem outputs to store as backup or to continue a run
+
+    Args:
+        col (Column): CANDY column of cells
+        nout (int): the output index
+        outputdirr (str): directory where savefiles should be stored
+    """
     for j in range(col.ncells):
         dirr = f'{outputdirr}/z{j:0>2}'
         subprocess.run(['cp','astrochem_output.h5',
@@ -124,6 +162,17 @@ def save_outputs(col: Column, nout: int, outputdirr: str) -> None:
 def new_save_outputs(col: Column, nout: int, time: float,
                      outputdirr: str, outputfile: str,
                      delete_subdir: bool = False) -> None:
+    """Save the current abundances of ice and gas into npz file. This
+    saves from the memory and accounts for ices lost due to grain growth
+
+    Args:
+        col (Column): CANDY column of cells
+        nout (int): output index
+        time (float): the current time
+        outputdirr (str): output directory
+        outputfile (str): output file name
+        delete_subdir (bool, optional): Delete subdirectories after values are saved. Defaults to False.
+    """
     
     save_outputs(col,nout,outputdirr)
     nzs = col.ncells
@@ -173,8 +222,16 @@ def new_save_outputs(col: Column, nout: int, time: float,
         subprocess.run(f'rm -rf {outputdirr}/z*', shell=True)
 
 
-def get_nh_and_av(source_file):
-    ''' Read the gas density (nh) and visual extinction (av) from source.mdl file '''
+def get_nh_and_av(source_file: str) -> tuple[float, float]:
+    """Read the number denisty of hydrogen and visual extinction from
+    the astrochem source file
+
+    Args:
+        source_file (str): name of astrochem source file
+
+    Returns:
+        tuple[float, float]: number density of hydrogen and visual extinction
+    """
     with open(source_file,'r') as f:
         f.readline()  # skip header
         params = f.readline().split()
@@ -183,7 +240,15 @@ def get_nh_and_av(source_file):
     return nh,av
 
 def get_specs_array(outputdirr: str) -> np.ndarray:
-    ''' Get an array of specs output by model '''
+    """Returns an array of species used from astrochem output. Reads in
+    from outputdirr/z00/astrochem_output.h5
+
+    Args:
+        outputdirr (str): name of output directory
+
+    Returns:
+        np.ndarray: array of species names
+    """
 
     _,abundict = get_abundict(outputdirr+f'/z00/astrochem_output.h5')
     specs = np.empty(len(list(abundict.keys())),dtype='U25')
@@ -192,6 +257,14 @@ def get_specs_array(outputdirr: str) -> np.ndarray:
     return specs
 
 def read_touts_from_file(fname: str) -> np.ndarray:
+    """Helper to read in output times saved in times.out
+
+    Args:
+        fname (str): name of file
+
+    Returns:
+        np.ndarray: array of output times
+    """
     touts = []
     with open (fname,'r') as f:
         f.readline() # header
@@ -203,6 +276,17 @@ def read_touts_from_file(fname: str) -> np.ndarray:
 def gather_all_abundances(
         col: Column, outputdirr: str, outputfile: str, 
         tf: float, delete_subdir: bool) -> None:
+    """(DEPRECATED) reads in all of the astrochem outputs from a column
+    and puts all the output params into a single .npz file
+
+    Args:
+        col (Column): CANDY column
+        outputdirr (str): output directory
+        outputfile (str): output file
+        tf (float): final time of simulation
+        delete_subdir (bool): option to delete subdirectories after
+        gathering abundances
+    """
     specs = get_specs_array(outputdirr)
     nspec = len(specs)
     touts = read_touts_from_file(f'{outputdirr}/times.out')
@@ -236,6 +320,17 @@ def gather_all_abundances(
 def gather_static_abuns(
         col: Column, outputdirr: str, outputfile: str, 
         tf: float, delete_subdir: bool):
+    """Gather outputs from column into single .npz file for a static
+    run of CANDY
+
+    Args:
+        col (Column): CANDY column
+        outputdirr (str): output directory
+        outputfile (str): output filename
+        tf (float): final time from the simulation
+        delete_subdir (bool): option to delete subdirectories after
+        creating .npz file
+    """
     specs = get_specs_array(outputdirr)
     nspec = len(specs)
     times,_ = get_abundict(f'{outputdirr}/z00/astrochem_output.h5')
@@ -264,14 +359,39 @@ def gather_static_abuns(
         print(f'rm -rf {outputdirr}/z*')
         subprocess.run(f'rm -rf {outputdirr}/z*', shell=True)
 
-def readh5file(filename='astrochem_output.h5'):
+def readh5file(filename: str='astrochem_output.h5') -> tuple[h5.File, h5.Dataset, h5.Dataset, h5.Dataset]:
+    """Helper function to read astrochem output and return relevent information
+
+    Args:
+        filename (str, optional): name of .h5 file to read. Defaults to 'astrochem_output.h5'.
+
+    Returns:
+        tuple[h5.File, dict, dict, dict]: tuple of outputs
+            opened h5.File object (be sure to close this later!)
+
+            list of species from astrochem
+
+            array of abundances for each species over time
+
+            list of times
+    """
+
     f = h5.File(filename,'r')
     spec = f['Species']
     abun = f['Abundances']
     time = f['TimeSteps']
     return f,spec,abun,time
 
-def get_abundict(filename='astrochem_output.h5',specs = 'all'): 
+def get_abundict(filename='astrochem_output.h5',specs = 'all') -> tuple[np.ndarray, dict]:
+    """Create a dictionary of species abundances from an astrochem output
+
+    Args:
+        filename (str, optional): astrochem output h5 file. Defaults to 'astrochem_output.h5'.
+        specs (list[str] | str, optional): list of species to include in the output dictionary. Defaults to 'all'.
+
+    Returns:
+        tuple[np.ndarray, dict]: array of times and the dictionary of species and abundances
+    """
     f,spec,abun,time = readh5file(filename)
 
     d = {}
@@ -284,15 +404,32 @@ def get_abundict(filename='astrochem_output.h5',specs = 'all'):
     f.close()
     return time,d
 
-def get_final_abuns(f_name,specs='all'):
-	final_abuns = {}
-	times,d = get_abundict(f_name,specs=specs)
-	for spec in d:
-		final_abuns[spec]=d[spec][-1]
-	return final_abuns
+def get_final_abuns(f_name: str,specs: list[str]|str='all') -> dict:
+    """Create a dictionary of the species abundances at the last time of the astrochem output
+
+    Args:
+        f_name (str): name of astrochem .h5 file
+        specs (list[str] | str, optional): list of species to include. Defaults to 'all'.
+
+    Returns:
+        dict: dictionary of species and abundances
+    """
+    final_abuns = {}
+    times,d = get_abundict(f_name,specs=specs)
+    for spec in d:
+        final_abuns[spec]=d[spec][-1]
+    return final_abuns
 
 def save_pebbles(
         col: Column, pebcomp: dict, f_pebout: str, time: float) -> None:
+    """Save the pebble compistion to text file
+
+    Args:
+        col (Column): CANDY column
+        pebcomp (dict): dictionary of pebble compositions
+        f_pebout (str): name of pebble text file
+        time (float): the current time
+    """
     with open(f_pebout, 'a+') as f:
         for spec in list(pebcomp.keys()):
             peb_comp_norm = pebcomp[spec]/col.cells[0].NH

@@ -56,8 +56,20 @@ class Cell(object):
         self.abundances = dict(abundances)
 
 
-    def write_chem_inputs(self,tf,abs_err,rel_err,abun_out='all',
-            f_net='network.chm',f_input='input.ini',f_source='source.mdl'):
+    def write_chem_inputs(self,tf: float,abs_err: float,rel_err: float,abun_out: str='all',
+            f_net: str='network.chm',f_input: str='input.ini',f_source: str='source.mdl'):
+        """Write the chmical input and source files for astrochem
+
+        Args:
+            tf (float): final time for chemistry
+            abs_err (float): absolute error for chemistry. If abundance is less than this set to zero
+            rel_err (float): relative error for chemistry
+            abun_out (str, optional): what species to track. Defaults to 'all'.
+            f_net (str, optional): chemical network to use for chemistry. Defaults to 'network.chm'.
+            f_input (str, optional): name of input file to write. Defaults to 'input.ini'.
+            f_source (str, optional): name of source file to write. Defaults to 'source.mdl'.
+        """
+        
         with open(f_input,'w') as f:
             f.write('[files]\n')
             f.write(f'source = {f_source}\n'+
@@ -98,5 +110,11 @@ class Cell(object):
 
         # print(f'Source written to {f_source}')
 
-    def update_abundances(self,new_dict):
+    def update_abundances(self,new_dict: dict):
+        """Update the abundances of each species in the cell
+
+        Args:
+            new_dict (dict): dictionary of new species and abundances
+
+        """
         self.abundances=dict(new_dict)

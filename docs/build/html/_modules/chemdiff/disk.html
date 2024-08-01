@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chemdiff.disk &mdash; newcandy 1.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            newcandy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Candy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">chemdiff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">newcandy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../chemdiff.html">chemdiff</a></li>
+      <li class="breadcrumb-item active">chemdiff.disk</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for chemdiff.disk</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
+
+<span class="sd">&quot;&quot;&quot;Analytic equations for disk structure</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="get_omega">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.disk.get_omega">[docs]</a>
+<span class="k">def</span> <span class="nf">get_omega</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return Keplerian frequency at given radial location</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        r (float): radial distance [cm]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Keplerian Frequency [s-1]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="n">const</span><span class="o">.</span><span class="n">MSUN</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">r</span></div>
+
+
+<div class="viewcode-block" id="get_midplane_temp">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.disk.get_midplane_temp">[docs]</a>
+<span class="k">def</span> <span class="nf">get_midplane_temp</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Midplane temperature of the disk, following Krijt et al. 2018</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        r (float): radial distance [cm]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: midplane temperature [K]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">130</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">const</span><span class="o">.</span><span class="n">AU</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_soundspeed">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.disk.get_soundspeed">[docs]</a>
+<span class="k">def</span> <span class="nf">get_soundspeed</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the soundspeed at a given location in the disk</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        r (float): radial distance [cm]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: soundspeed [cm/s]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmid</span> <span class="o">=</span> <span class="n">get_midplane_temp</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">BK</span><span class="o">*</span><span class="n">tmid</span><span class="o">/</span><span class="n">const</span><span class="o">.</span><span class="n">MBAR</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_scaleheight">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.disk.get_scaleheight">[docs]</a>
+<span class="k">def</span> <span class="nf">get_scaleheight</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the scaleheight at a given location</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        r (float): radial distance [cm]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: scaleheight [cm]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">om</span> <span class="o">=</span> <span class="n">get_omega</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">get_soundspeed</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cs</span><span class="o">/</span><span class="n">om</span></div>
+
+
+<div class="viewcode-block" id="get_surface_density">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.disk.get_surface_density">[docs]</a>
+<span class="k">def</span> <span class="nf">get_surface_density</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Surface density at a given location in the disk following a powerlaw. Assumes disk is 0.05Msun in mass, and edge of disk is at 100 AU. Power law slope of -1</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        r (float): radial distance [cm]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Surface density, Sigma(r) [g cm-2]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Mdisk</span><span class="o">=</span><span class="mf">0.05</span><span class="o">*</span><span class="n">const</span><span class="o">.</span><span class="n">MSUN</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">rc</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">const</span><span class="o">.</span><span class="n">AU</span>
+    <span class="n">sigc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">Mdisk</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rc</span><span class="o">*</span><span class="n">rc</span><span class="p">)</span>
+    <span class="n">sig</span> <span class="o">=</span> <span class="n">sigc</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">rc</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">rc</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">p</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">sig</span></div>
+
+
+<div class="viewcode-block" id="get_temperature">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.disk.get_temperature">[docs]</a>
+<span class="k">def</span> <span class="nf">get_temperature</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the temperature at a given 2d location for an irradiated disk</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        r (float): radial distance [cm]</span>
+<span class="sd">        z (float): height above midplane [cm]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Disk Temperature [K]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmid</span> <span class="o">=</span> <span class="n">get_midplane_temp</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">tatm</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">tmid</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">get_scaleheight</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">zq</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># scale height at which temp=tatm</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">tmid</span><span class="o">+</span><span class="p">(</span><span class="n">tatm</span><span class="o">-</span><span class="n">tmid</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">z</span><span class="o">/</span><span class="mf">2.</span><span class="o">/</span><span class="n">zq</span><span class="o">/</span><span class="n">h</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="n">zq</span><span class="o">*</span><span class="n">h</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">tatm</span>
+    <span class="k">return</span> <span class="n">temp</span></div>
+
+
+<div class="viewcode-block" id="get_density">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.disk.get_density">[docs]</a>
+<span class="k">def</span> <span class="nf">get_density</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the gas density at a given 2d location</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        r (float): radial distance [cm]</span>
+<span class="sd">        z (float): height above midplane [cm]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: gas density [g cm-3]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sig</span> <span class="o">=</span> <span class="n">get_surface_density</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">get_scaleheight</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">rho0</span> <span class="o">=</span> <span class="n">sig</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">/</span><span class="n">h</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="n">rho0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="o">*</span><span class="n">z</span><span class="o">/</span><span class="mf">2.</span><span class="o">/</span><span class="n">h</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rho</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Eric Van Clepper.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

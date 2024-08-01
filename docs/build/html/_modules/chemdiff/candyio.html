@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chemdiff.candyio &mdash; newcandy 1.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            newcandy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Candy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">chemdiff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">newcandy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../chemdiff.html">chemdiff</a></li>
+      <li class="breadcrumb-item active">chemdiff.candyio</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for chemdiff.candyio</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">configparser</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">h5</span>
+
+<span class="kn">from</span> <span class="nn">.column</span> <span class="kn">import</span> <span class="n">Column</span>
+
+<div class="viewcode-block" id="get_touts">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.get_touts">[docs]</a>
+<span class="k">def</span> <span class="nf">get_touts</span><span class="p">(</span><span class="n">tf</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the default list of output times</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tf (float): final time to create touts until</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[float]: list of output times</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">touts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">exp</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="n">tf</span><span class="p">:</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">base</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="n">exp</span>
+        <span class="n">touts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">exp</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">base</span> <span class="o">+=</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">base</span> <span class="o">+=</span> <span class="mf">0.5</span>
+
+        <span class="k">if</span> <span class="n">base</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">base</span> <span class="o">=</span> <span class="n">base</span><span class="o">/</span><span class="mi">10</span>
+            <span class="n">exp</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">touts</span></div>
+
+
+<div class="viewcode-block" id="parse_list">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.parse_list">[docs]</a>
+<span class="k">def</span> <span class="nf">parse_list</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read in a string and convert to a python list. Used to read in</span>
+<span class="sd">    touts from input file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        s (str): list string</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: parsed list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">),</span> <span class="s2">&quot;touts format must be as a list with square brackets&quot;</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">ts</span></div>
+
+
+
+<div class="viewcode-block" id="get_defaults">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.get_defaults">[docs]</a>
+<span class="k">def</span> <span class="nf">get_defaults</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the default parameters for CANDY run as a tuple of</span>
+<span class="sd">    dictionaries.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[dict, dict, dict]: tuple of dictionaries containing default model params, physical params, and abundances</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># default model parameters</span>
+    <span class="n">model_inputs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;chmfile&#39;</span> <span class="p">:</span> <span class="s1">&#39;astrochem/networks/umist12_x.chm&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pebfile&#39;</span> <span class="p">:</span> <span class="s1">&#39;pebcomp.out&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ti&#39;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;tf&#39;</span> <span class="p">:</span> <span class="mf">1e6</span><span class="p">,</span>
+        <span class="s1">&#39;chemtime&#39;</span> <span class="p">:</span> <span class="mf">500.0</span><span class="p">,</span>
+        <span class="s1">&#39;difftime&#39;</span> <span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
+        <span class="s1">&#39;outputdir&#39;</span> <span class="p">:</span> <span class="s1">&#39;r00&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;outfile&#39;</span> <span class="p">:</span> <span class="s1">&#39;output_abuns.npz&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ncells&#39;</span> <span class="p">:</span> <span class="mi">50</span>
+    <span class="p">}</span>
+    <span class="n">model_inputs</span><span class="p">[</span><span class="s1">&#39;touts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_touts</span><span class="p">(</span><span class="n">model_inputs</span><span class="p">[</span><span class="s1">&#39;tf&#39;</span><span class="p">])</span>
+    <span class="c1"># default physical paramters</span>
+    <span class="n">phys_inputs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;r&#39;</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="s1">&#39;r_units&#39;</span> <span class="p">:</span> <span class="s1">&#39;au&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">1.e-3</span><span class="p">,</span>
+        <span class="s1">&#39;chi&#39;</span> <span class="p">:</span> <span class="mf">50.</span><span class="p">,</span>
+        <span class="s1">&#39;cosmic&#39;</span> <span class="p">:</span> <span class="mf">1.3e-17</span><span class="p">,</span>
+        <span class="s1">&#39;grain_size&#39;</span> <span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="s1">&#39;dg0&#39;</span> <span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+        <span class="s1">&#39;opacity&#39;</span> <span class="p">:</span> <span class="mf">1.0e5</span><span class="p">,</span>
+        <span class="s1">&#39;growth_timescale_factor&#39;</span> <span class="p">:</span> <span class="mf">1.</span><span class="p">,</span>
+        <span class="s1">&#39;growth_height&#39;</span> <span class="p">:</span> <span class="mf">1.</span><span class="p">,</span>
+        <span class="s1">&#39;growth_delay_time&#39;</span> <span class="p">:</span> <span class="mf">0.</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># default initial chemical abundances</span>
+    <span class="n">abundances</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;H2&#39;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;He&#39;</span> <span class="p">:</span> <span class="mf">9.75e-2</span><span class="p">,</span>
+        <span class="s1">&#39;NH3&#39;</span><span class="p">:</span> <span class="mf">1.45e-6</span><span class="p">,</span>
+        <span class="s1">&#39;H2O&#39;</span><span class="p">:</span> <span class="mf">1.18e-4</span><span class="p">,</span>
+        <span class="s1">&#39;CO&#39;</span> <span class="p">:</span> <span class="mf">6.00e-5</span><span class="p">,</span>
+        <span class="s1">&#39;N2&#39;</span> <span class="p">:</span> <span class="mf">2.00e-5</span><span class="p">,</span>
+        <span class="s1">&#39;CH4&#39;</span><span class="p">:</span> <span class="mf">2.00e-6</span><span class="p">,</span>
+        <span class="s1">&#39;CH3OH&#39;</span> <span class="p">:</span> <span class="mf">1.00e-6</span><span class="p">,</span>
+        <span class="s1">&#39;H2S&#39;</span> <span class="p">:</span> <span class="mf">1.91e-8</span><span class="p">,</span>
+        <span class="s1">&#39;CO2&#39;</span> <span class="p">:</span> <span class="mf">5.00e-5</span><span class="p">,</span>
+        <span class="s1">&#39;HCN&#39;</span> <span class="p">:</span> <span class="mf">3.50e-7</span><span class="p">,</span>
+        <span class="s1">&#39;grain&#39;</span> <span class="p">:</span> <span class="mf">2.2e-12</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">model_inputs</span><span class="p">,</span><span class="n">phys_inputs</span><span class="p">,</span><span class="n">abundances</span></div>
+
+
+<div class="viewcode-block" id="read_infile">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.read_infile">[docs]</a>
+<span class="k">def</span> <span class="nf">read_infile</span><span class="p">(</span><span class="n">fin</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reads the input file to create input parameters dictionaries for CANDY</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fin (str): name of input file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[dict, dict, dict]: dictionaries of model params, physical params, and abundances</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+    <span class="c1"># the next line retains case sesnitivity for input parameters</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">optionxform</span> <span class="o">=</span> <span class="nb">str</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fin</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">,</span><span class="n">phys</span><span class="p">,</span><span class="n">abuns</span> <span class="o">=</span> <span class="n">get_defaults</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;chmfile&#39;</span><span class="p">,</span><span class="s1">&#39;pebfile&#39;</span><span class="p">,</span><span class="s1">&#39;outputdir&#39;</span><span class="p">,</span><span class="s1">&#39;outfile&#39;</span><span class="p">]:</span>
+            <span class="n">model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;touts&#39;</span><span class="p">]:</span>
+            <span class="n">model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parse_list</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ncells&#39;</span><span class="p">]:</span>
+            <span class="n">model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;touts&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">model</span><span class="p">[</span><span class="s1">&#39;touts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_touts</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;tf&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">model</span><span class="p">[</span><span class="s1">&#39;tf&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model</span><span class="p">[</span><span class="s1">&#39;touts&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: tf is not in touts, including tf in list of output times&#39;</span><span class="p">)</span>
+        <span class="n">model</span><span class="p">[</span><span class="s1">&#39;touts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;tf&#39;</span><span class="p">])</span>
+
+    <span class="n">dterror</span> <span class="o">=</span> <span class="s1">&#39;Diffusion time must be less than or equal to chemtime.</span><span class="se">\n</span><span class="s1">&#39;</span> \
+            <span class="o">+</span><span class="sa">f</span><span class="s1">&#39;chemtime = </span><span class="si">{</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;chemtime&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span> \
+            <span class="o">+</span><span class="sa">f</span><span class="s1">&#39;difftime = </span><span class="si">{</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;difftime&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">assert</span> <span class="n">model</span><span class="p">[</span><span class="s1">&#39;chemtime&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">model</span><span class="p">[</span><span class="s1">&#39;difftime&#39;</span><span class="p">],</span> <span class="n">dterror</span>
+    
+    <span class="n">model</span><span class="p">[</span><span class="s1">&#39;touts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;touts = &#39;</span><span class="p">,</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;touts&#39;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;phys&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;r_units&#39;</span><span class="p">:</span>
+            <span class="n">phys</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;phys&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">phys</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;phys&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;abundances&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+        <span class="n">abuns</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;abundances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span><span class="n">phys</span><span class="p">,</span><span class="n">abuns</span></div>
+
+
+<div class="viewcode-block" id="save_outputs">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.save_outputs">[docs]</a>
+<span class="k">def</span> <span class="nf">save_outputs</span><span class="p">(</span><span class="n">col</span><span class="p">:</span> <span class="n">Column</span><span class="p">,</span> <span class="n">nout</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">outputdirr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy and paste astrochem outputs to store as backup or to continue a run</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        col (Column): CANDY column of cells</span>
+<span class="sd">        nout (int): the output index</span>
+<span class="sd">        outputdirr (str): directory where savefiles should be stored</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">ncells</span><span class="p">):</span>
+        <span class="n">dirr</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z</span><span class="si">{</span><span class="n">j</span><span class="si">:</span><span class="s1">0&gt;2</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span><span class="s1">&#39;astrochem_output.h5&#39;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;astrochem_output_t</span><span class="si">{</span><span class="n">nout</span><span class="si">}</span><span class="s1">.h5&#39;</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="n">dirr</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span><span class="s1">&#39;source.mdl&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;source_t</span><span class="si">{</span><span class="n">nout</span><span class="si">}</span><span class="s1">.mdl&#39;</span><span class="p">],</span><span class="n">cwd</span><span class="o">=</span><span class="n">dirr</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span><span class="s1">&#39;input.ini&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;input_t</span><span class="si">{</span><span class="n">nout</span><span class="si">}</span><span class="s1">.ini&#39;</span><span class="p">],</span><span class="n">cwd</span><span class="o">=</span><span class="n">dirr</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="new_save_outputs">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.new_save_outputs">[docs]</a>
+<span class="k">def</span> <span class="nf">new_save_outputs</span><span class="p">(</span><span class="n">col</span><span class="p">:</span> <span class="n">Column</span><span class="p">,</span> <span class="n">nout</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                     <span class="n">outputdirr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                     <span class="n">delete_subdir</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save the current abundances of ice and gas into npz file. This</span>
+<span class="sd">    saves from the memory and accounts for ices lost due to grain growth</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        col (Column): CANDY column of cells</span>
+<span class="sd">        nout (int): output index</span>
+<span class="sd">        time (float): the current time</span>
+<span class="sd">        outputdirr (str): output directory</span>
+<span class="sd">        outputfile (str): output file name</span>
+<span class="sd">        delete_subdir (bool, optional): Delete subdirectories after values are saved. Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">save_outputs</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="n">nout</span><span class="p">,</span><span class="n">outputdirr</span><span class="p">)</span>
+    <span class="n">nzs</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">ncells</span>
+    <span class="k">if</span> <span class="n">nout</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">species</span> <span class="o">=</span> <span class="n">get_specs_array</span><span class="p">(</span><span class="n">outputdirr</span><span class="p">)</span>
+        <span class="n">nspec</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="p">)</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">read_touts_from_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/times.out&#39;</span><span class="p">)</span>
+        <span class="n">nts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+
+        <span class="n">gas_dens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nzs</span><span class="p">)</span>
+        <span class="n">extinctions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nts</span><span class="p">,</span><span class="n">nzs</span><span class="p">))</span>
+        <span class="n">abundances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nts</span><span class="p">,</span><span class="n">nzs</span><span class="p">,</span><span class="n">nspec</span><span class="p">))</span>
+        <span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nzs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nzs</span><span class="p">):</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">gas_dens</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">nh</span>
+            <span class="n">extinctions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">av</span>
+            <span class="n">heights</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">z</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nspec</span><span class="p">):</span>
+                <span class="n">abundances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">abundances</span><span class="p">[</span><span class="n">species</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        
+        <span class="n">oldoutput</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">outputfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># get things that don&#39;t change</span>
+        <span class="n">times</span>    <span class="o">=</span> <span class="n">oldoutput</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">]</span>
+        <span class="n">species</span>  <span class="o">=</span> <span class="n">oldoutput</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span>
+        <span class="n">heights</span>  <span class="o">=</span> <span class="n">oldoutput</span><span class="p">[</span><span class="s1">&#39;heights&#39;</span><span class="p">]</span>
+        <span class="n">gas_dens</span> <span class="o">=</span> <span class="n">oldoutput</span><span class="p">[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span>
+        <span class="c1"># update the things that do</span>
+        <span class="n">extinctions</span> <span class="o">=</span> <span class="n">oldoutput</span><span class="p">[</span><span class="s1">&#39;extinctions&#39;</span><span class="p">]</span>
+        <span class="n">abundances</span>  <span class="o">=</span> <span class="n">oldoutput</span><span class="p">[</span><span class="s1">&#39;abundances&#39;</span><span class="p">]</span>
+        <span class="n">nspec</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nzs</span><span class="p">):</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">extinctions</span><span class="p">[</span><span class="n">nout</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">av</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nspec</span><span class="p">):</span>
+                <span class="n">abundances</span><span class="p">[</span><span class="n">nout</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">abundances</span><span class="p">[</span><span class="n">species</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">outputfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span><span class="n">species</span><span class="o">=</span><span class="n">species</span><span class="p">,</span>
+        <span class="n">abundances</span><span class="o">=</span><span class="n">abundances</span><span class="p">,</span><span class="n">heights</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="n">gas_dens</span><span class="p">,</span>
+        <span class="n">extinctions</span><span class="o">=</span><span class="n">extinctions</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">delete_subdir</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removing sub directories&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rm -rf </span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z*&#39;</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rm -rf </span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z*&#39;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_nh_and_av">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.get_nh_and_av">[docs]</a>
+<span class="k">def</span> <span class="nf">get_nh_and_av</span><span class="p">(</span><span class="n">source_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the number denisty of hydrogen and visual extinction from</span>
+<span class="sd">    the astrochem source file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source_file (str): name of astrochem source file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[float, float]: number density of hydrogen and visual extinction</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c1"># skip header</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">nh</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">av</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">nh</span><span class="p">,</span><span class="n">av</span></div>
+
+
+<div class="viewcode-block" id="get_specs_array">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.get_specs_array">[docs]</a>
+<span class="k">def</span> <span class="nf">get_specs_array</span><span class="p">(</span><span class="n">outputdirr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an array of species used from astrochem output. Reads in</span>
+<span class="sd">    from outputdirr/z00/astrochem_output.h5</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        outputdirr (str): name of output directory</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of species names</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_</span><span class="p">,</span><span class="n">abundict</span> <span class="o">=</span> <span class="n">get_abundict</span><span class="p">(</span><span class="n">outputdirr</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39;/z00/astrochem_output.h5&#39;</span><span class="p">)</span>
+    <span class="n">specs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">abundict</span><span class="o">.</span><span class="n">keys</span><span class="p">())),</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">spec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">abundict</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+        <span class="n">specs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span>
+    <span class="k">return</span> <span class="n">specs</span></div>
+
+
+<div class="viewcode-block" id="read_touts_from_file">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.read_touts_from_file">[docs]</a>
+<span class="k">def</span> <span class="nf">read_touts_from_file</span><span class="p">(</span><span class="n">fname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper to read in output times saved in times.out</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fname (str): name of file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: array of output times</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">touts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="c1"># header</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">t</span><span class="p">,</span><span class="n">time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">touts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">touts</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gather_all_abundances">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.gather_all_abundances">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_all_abundances</span><span class="p">(</span>
+        <span class="n">col</span><span class="p">:</span> <span class="n">Column</span><span class="p">,</span> <span class="n">outputdirr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+        <span class="n">tf</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">delete_subdir</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;(DEPRECATED) reads in all of the astrochem outputs from a column</span>
+<span class="sd">    and puts all the output params into a single .npz file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        col (Column): CANDY column</span>
+<span class="sd">        outputdirr (str): output directory</span>
+<span class="sd">        outputfile (str): output file</span>
+<span class="sd">        tf (float): final time of simulation</span>
+<span class="sd">        delete_subdir (bool): option to delete subdirectories after</span>
+<span class="sd">        gathering abundances</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">specs</span> <span class="o">=</span> <span class="n">get_specs_array</span><span class="p">(</span><span class="n">outputdirr</span><span class="p">)</span>
+    <span class="n">nspec</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">specs</span><span class="p">)</span>
+    <span class="n">touts</span> <span class="o">=</span> <span class="n">read_touts_from_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/times.out&#39;</span><span class="p">)</span>
+    <span class="n">touts</span> <span class="o">=</span> <span class="n">touts</span><span class="p">[</span><span class="n">touts</span><span class="o">&lt;=</span><span class="n">tf</span><span class="p">]</span>
+    <span class="n">nts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">touts</span><span class="p">)</span>
+    <span class="n">nzs</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">ncells</span>
+
+    <span class="n">gas_dens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nzs</span><span class="p">)</span>
+    <span class="n">extinctions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nts</span><span class="p">,</span><span class="n">nzs</span><span class="p">))</span>
+    <span class="n">abundances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nts</span><span class="p">,</span><span class="n">nzs</span><span class="p">,</span><span class="n">nspec</span><span class="p">))</span>
+    <span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nzs</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nzs</span><span class="p">):</span>
+        <span class="n">dirr</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z</span><span class="si">{</span><span class="n">j</span><span class="si">:</span><span class="s1">0&gt;2</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span><span class="n">time</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">touts</span><span class="p">):</span>
+            <span class="n">nh</span><span class="p">,</span><span class="n">av</span> <span class="o">=</span> <span class="n">get_nh_and_av</span><span class="p">(</span><span class="n">dirr</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39;/source_t</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">.mdl&#39;</span><span class="p">)</span>
+            <span class="n">extinctions</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">av</span>
+            <span class="k">if</span> <span class="n">t</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">gas_dens</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">nh</span>
+                <span class="n">heights</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">z</span>
+            <span class="n">final_dict</span> <span class="o">=</span> <span class="n">get_final_abuns</span><span class="p">(</span><span class="n">dirr</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39;/astrochem_output_t</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">.h5&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">spec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">final_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+                <span class="n">abundances</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_dict</span><span class="p">[</span><span class="n">spec</span><span class="p">]</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">outputfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">times</span><span class="o">=</span><span class="n">touts</span><span class="p">,</span><span class="n">species</span><span class="o">=</span><span class="n">specs</span><span class="p">,</span>
+        <span class="n">abundances</span><span class="o">=</span><span class="n">abundances</span><span class="p">,</span><span class="n">heights</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="n">gas_dens</span><span class="p">,</span>
+        <span class="n">extinctions</span><span class="o">=</span><span class="n">extinctions</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">delete_subdir</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removing sub directories&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rm -rf </span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z*&#39;</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rm -rf </span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z*&#39;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gather_static_abuns">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.gather_static_abuns">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_static_abuns</span><span class="p">(</span>
+        <span class="n">col</span><span class="p">:</span> <span class="n">Column</span><span class="p">,</span> <span class="n">outputdirr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+        <span class="n">tf</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">delete_subdir</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gather outputs from column into single .npz file for a static</span>
+<span class="sd">    run of CANDY</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        col (Column): CANDY column</span>
+<span class="sd">        outputdirr (str): output directory</span>
+<span class="sd">        outputfile (str): output filename</span>
+<span class="sd">        tf (float): final time from the simulation</span>
+<span class="sd">        delete_subdir (bool): option to delete subdirectories after</span>
+<span class="sd">        creating .npz file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">specs</span> <span class="o">=</span> <span class="n">get_specs_array</span><span class="p">(</span><span class="n">outputdirr</span><span class="p">)</span>
+    <span class="n">nspec</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">specs</span><span class="p">)</span>
+    <span class="n">times</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">get_abundict</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z00/astrochem_output.h5&#39;</span><span class="p">)</span>
+    <span class="n">nts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="n">nzs</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">ncells</span>
+
+    <span class="n">gas_dens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nzs</span><span class="p">)</span>
+    <span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nzs</span><span class="p">)</span>
+    <span class="n">extinctions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nts</span><span class="p">,</span><span class="n">nzs</span><span class="p">))</span>
+    <span class="n">abundances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nts</span><span class="p">,</span><span class="n">nzs</span><span class="p">,</span><span class="n">nspec</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nzs</span><span class="p">):</span>
+        <span class="n">dirr</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z</span><span class="si">{</span><span class="n">j</span><span class="si">:</span><span class="s1">0&gt;2</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">nh</span><span class="p">,</span><span class="n">av</span> <span class="o">=</span> <span class="n">get_nh_and_av</span><span class="p">(</span><span class="n">dirr</span><span class="o">+</span><span class="s1">&#39;/source.mdl&#39;</span><span class="p">)</span>
+        <span class="n">extinctions</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="o">*</span><span class="n">av</span>
+        <span class="n">gas_dens</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">nh</span>
+        <span class="n">heights</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">z</span>
+        <span class="n">ts</span><span class="p">,</span><span class="n">abundict</span> <span class="o">=</span> <span class="n">get_abundict</span><span class="p">(</span><span class="n">dirr</span><span class="o">+</span><span class="s1">&#39;/astrochem_output.h5&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">spec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">abundict</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+            <span class="n">abundances</span><span class="p">[:,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">abundict</span><span class="p">[</span><span class="n">spec</span><span class="p">]</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">outputfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span><span class="n">species</span><span class="o">=</span><span class="n">specs</span><span class="p">,</span>
+        <span class="n">abundances</span><span class="o">=</span><span class="n">abundances</span><span class="p">,</span><span class="n">heights</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="n">gas_dens</span><span class="p">,</span>
+        <span class="n">extinctions</span><span class="o">=</span><span class="n">extinctions</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">delete_subdir</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;removing sub directories&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rm -rf </span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z*&#39;</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rm -rf </span><span class="si">{</span><span class="n">outputdirr</span><span class="si">}</span><span class="s1">/z*&#39;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="readh5file">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.readh5file">[docs]</a>
+<span class="k">def</span> <span class="nf">readh5file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;astrochem_output.h5&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">,</span> <span class="n">h5</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">h5</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">h5</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function to read astrochem output and return relevent information</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str, optional): name of .h5 file to read. Defaults to &#39;astrochem_output.h5&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[h5.File, dict, dict, dict]: tuple of outputs</span>
+<span class="sd">            opened h5.File object (be sure to close this later!)</span>
+
+<span class="sd">            list of species from astrochem</span>
+
+<span class="sd">            array of abundances for each species over time</span>
+
+<span class="sd">            list of times</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span>
+    <span class="n">abun</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;Abundances&#39;</span><span class="p">]</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;TimeSteps&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">,</span><span class="n">spec</span><span class="p">,</span><span class="n">abun</span><span class="p">,</span><span class="n">time</span></div>
+
+
+<div class="viewcode-block" id="get_abundict">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.get_abundict">[docs]</a>
+<span class="k">def</span> <span class="nf">get_abundict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;astrochem_output.h5&#39;</span><span class="p">,</span><span class="n">specs</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a dictionary of species abundances from an astrochem output</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str, optional): astrochem output h5 file. Defaults to &#39;astrochem_output.h5&#39;.</span>
+<span class="sd">        specs (list[str] | str, optional): list of species to include in the output dictionary. Defaults to &#39;all&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[np.ndarray, dict]: array of times and the dictionary of species and abundances</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f</span><span class="p">,</span><span class="n">spec</span><span class="p">,</span><span class="n">abun</span><span class="p">,</span><span class="n">time</span> <span class="o">=</span> <span class="n">readh5file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="n">specie</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">specie</span> <span class="ow">in</span> <span class="n">specs</span> <span class="ow">or</span> <span class="n">specs</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">abund</span> <span class="o">=</span> <span class="n">abun</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">specie</span><span class="p">]</span> <span class="o">=</span> <span class="n">abund</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">time</span><span class="p">,</span><span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="get_final_abuns">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.get_final_abuns">[docs]</a>
+<span class="k">def</span> <span class="nf">get_final_abuns</span><span class="p">(</span><span class="n">f_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span><span class="n">specs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">|</span><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a dictionary of the species abundances at the last time of the astrochem output</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f_name (str): name of astrochem .h5 file</span>
+<span class="sd">        specs (list[str] | str, optional): list of species to include. Defaults to &#39;all&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: dictionary of species and abundances</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">final_abuns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">times</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">get_abundict</span><span class="p">(</span><span class="n">f_name</span><span class="p">,</span><span class="n">specs</span><span class="o">=</span><span class="n">specs</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+        <span class="n">final_abuns</span><span class="p">[</span><span class="n">spec</span><span class="p">]</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">spec</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">final_abuns</span></div>
+
+
+<div class="viewcode-block" id="save_pebbles">
+<a class="viewcode-back" href="../../chemdiff.html#chemdiff.candyio.save_pebbles">[docs]</a>
+<span class="k">def</span> <span class="nf">save_pebbles</span><span class="p">(</span>
+        <span class="n">col</span><span class="p">:</span> <span class="n">Column</span><span class="p">,</span> <span class="n">pebcomp</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">f_pebout</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save the pebble compistion to text file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        col (Column): CANDY column</span>
+<span class="sd">        pebcomp (dict): dictionary of pebble compositions</span>
+<span class="sd">        f_pebout (str): name of pebble text file</span>
+<span class="sd">        time (float): the current time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_pebout</span><span class="p">,</span> <span class="s1">&#39;a+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">pebcomp</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">peb_comp_norm</span> <span class="o">=</span> <span class="n">pebcomp</span><span class="p">[</span><span class="n">spec</span><span class="p">]</span><span class="o">/</span><span class="n">col</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">NH</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">peb_comp_norm</span><span class="si">:</span><span class="s1">.10e</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">argparse</span>
+    <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;infile&#39;</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;example.ini&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">model</span><span class="p">,</span><span class="n">phys</span><span class="p">,</span><span class="n">abuns</span> <span class="o">=</span> <span class="n">read_infile</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">infile</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">phys</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">abuns</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Eric Van Clepper.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
