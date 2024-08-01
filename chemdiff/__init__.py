@@ -1,20 +1,11 @@
-import numpy as np
-import h5py as h5
-import subprocess
-
 __version__ = "1.2.2"
 __author__ = "Eric Van Clepper"
 
 from .column import Column
 from .cell import Cell
-from . import candyio
-from . import constants
-from . import disk
-from . import chemistry
-from . import diffusion
-from . import utils
 
 def create_column(r: float, alpha=1e-3, ncells=50) -> Column:
+    
     """Create a Column object.
 
     Parameters
