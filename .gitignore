@@ -9,5 +9,7 @@ cdtest.ini
 testoutput/
 astrochem/networks/scratch.chm
 
+**/z*/
+
 # mac generated files
 .DS_Store
