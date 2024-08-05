@@ -2,7 +2,7 @@
 
 Chemistry ANd DYnamics in protoplanetary disks
 
-See read the docs for most up-to-date documentation
+See [read the docs](https://newcandy.readthedocs.io/en/latest/) for most up-to-date documentation
 
 - [Candy](#candy)
   - [About](#about)
@@ -313,6 +313,11 @@ The chemdiff directory contains all of the python modules. Of particular interes
 ## Bugs
 
 If you find a bug please let me know via email or provide a pull request to fix the issue! Below are some of the known bugs that I am planning to fix, but haven't yet.
+
+TODO:
+remove the dust to gas ratio from the input, just get a grain abundance.
+  Do a check if both are given
+Make it clear cells are defined at the midpoint
 
 - KeyError: 'grain'
   + This error can arise if the species 'grain' is not included somewhere in the network file. If 'grain' is not in the network file, then the abundance of that species is not returned, and candy loses track of the proper grain abundance. This can be fixed by appending a reaction where 'grain' is present but does nothing. For example:
