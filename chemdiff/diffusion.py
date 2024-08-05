@@ -1,5 +1,4 @@
 import numpy as np
-import h5py 
 
 from . import constants as const
 from .utils import grain_abun2dg
