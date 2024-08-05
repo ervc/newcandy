@@ -3,8 +3,17 @@ import numpy as np
 from . import disk
 
 class Column:
+    """1D Column of cells to allow for chemistry, diffusion, and grain growth
+    """
+    def __init__(self,r: float,alpha: float=1e-3,ncells: int=50):
+        """Column object for chemistry and diffusion within CANDY.
+        Contains 1d (vertical) array of cells at a given location in the disk.
 
-    def __init__(self,r,alpha=1e-3,ncells=50):
+        Args:
+            r (float): radial location of the column [cm]
+            alpha (float, optional): alpha viscosity param. Defaults to 1e-3.
+            ncells (int, optional): number of cells to divide column. Defaults to 50.
+        """
         self.r = r # cm
         self.ncells = ncells
         self.tmid = disk.get_midplane_temp(r) # K
@@ -17,7 +26,12 @@ class Column:
 
         self.cells = np.empty(ncells,dtype='object')
 
-    def get_abundance_array(self):
+    def get_abundance_array(self) -> dict:
+        """Returns dictionary of chemical abundances for each cell
+
+        Returns:
+            dict: dictionary of abundances. Keys are the string of the chemical and values are arrays of length (nz,)
+        """
         all_abunds = {}
         for i in range(self.ncells):
             cell = self.cells[i]
@@ -29,6 +43,13 @@ class Column:
         return all_abunds
 
     def update_column_densities(self,opacity: float):
+        """Update the column densities and visual extinctions throughout
+        the column given the current cell abundances. This should be
+        called after column abundances are changed to remain consistent
+
+        Args:
+            opacity (float): The opacity of small dust grains [cm2 g-1]ß
+        """
         NCO = 0.
         NH2 = 0.
         NHD = 0.
