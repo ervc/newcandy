@@ -80,8 +80,17 @@
 <div class="viewcode-block" id="Column">
 <a class="viewcode-back" href="../../chemdiff.html#chemdiff.column.Column">[docs]</a>
 <span class="k">class</span> <span class="nc">Column</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;1D Column of cells to allow for chemistry, diffusion, and grain growth</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">ncells</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Column object for chemistry and diffusion within CANDY.</span>
+<span class="sd">        Contains 1d (vertical) array of cells at a given location in the disk.</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">ncells</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="sd">        Args:</span>
+<span class="sd">            r (float): radial location of the column [cm]</span>
+<span class="sd">            alpha (float, optional): alpha viscosity param. Defaults to 1e-3.</span>
+<span class="sd">            ncells (int, optional): number of cells to divide column. Defaults to 50.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="c1"># cm</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ncells</span> <span class="o">=</span> <span class="n">ncells</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmid</span> <span class="o">=</span> <span class="n">disk</span><span class="o">.</span><span class="n">get_midplane_temp</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="c1"># K</span>
@@ -96,7 +105,12 @@
 
 <div class="viewcode-block" id="Column.get_abundance_array">
 <a class="viewcode-back" href="../../chemdiff.html#chemdiff.column.Column.get_abundance_array">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_abundance_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_abundance_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns dictionary of chemical abundances for each cell</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: dictionary of abundances. Keys are the string of the chemical and values are arrays of length (nz,)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">all_abunds</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ncells</span><span class="p">):</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -111,6 +125,13 @@
 <div class="viewcode-block" id="Column.update_column_densities">
 <a class="viewcode-back" href="../../chemdiff.html#chemdiff.column.Column.update_column_densities">[docs]</a>
     <span class="k">def</span> <span class="nf">update_column_densities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the column densities and visual extinctions throughout</span>
+<span class="sd">        the column given the current cell abundances. This should be</span>
+<span class="sd">        called after column abundances are changed to remain consistent</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            opacity (float): The opacity of small dust grains [cm2 g-1]ß</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">NCO</span> <span class="o">=</span> <span class="mf">0.</span>
         <span class="n">NH2</span> <span class="o">=</span> <span class="mf">0.</span>
         <span class="n">NHD</span> <span class="o">=</span> <span class="mf">0.</span>

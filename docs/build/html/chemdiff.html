@@ -544,17 +544,35 @@ abundances are still returned in the output file.</p>
 <span id="chemdiff-column-module"></span><h2>chemdiff.column module<a class="headerlink" href="#module-chemdiff.column" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="chemdiff.column.Column">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chemdiff.column.</span></span><span class="sig-name descname"><span class="pre">Column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncells</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/column.html#Column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chemdiff.column.</span></span><span class="sig-name descname"><span class="pre">Column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/column.html#Column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>1D Column of cells to allow for chemistry, diffusion, and grain growth</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="chemdiff.column.Column.get_abundance_array">
-<span class="sig-name descname"><span class="pre">get_abundance_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/column.html#Column.get_abundance_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column.get_abundance_array" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">get_abundance_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/chemdiff/column.html#Column.get_abundance_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column.get_abundance_array" title="Link to this definition"></a></dt>
+<dd><p>Returns dictionary of chemical abundances for each cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dictionary of abundances. Keys are the string of the chemical and values are arrays of length (nz,)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="chemdiff.column.Column.update_column_densities">
 <span class="sig-name descname"><span class="pre">update_column_densities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemdiff/column.html#Column.update_column_densities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chemdiff.column.Column.update_column_densities" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the column densities and visual extinctions throughout
+the column given the current cell abundances. This should be
+called after column abundances are changed to remain consistent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>opacity</strong> (<em>float</em>) – The opacity of small dust grains [cm2 g-1]ß</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
