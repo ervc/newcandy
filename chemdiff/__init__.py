@@ -1,5 +1,7 @@
-__version__ = "1.2.2"
+__version__ = "1.3.0"
 __author__ = "Eric Van Clepper"
+
+from . import candyio, chemistry, cell, column, constants, diffusion, disk, utils, plotting
 
 from .column import Column
 from .cell import Cell
