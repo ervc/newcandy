@@ -39,9 +39,15 @@ contained. CANDY works by iteratively switching between chemistry and dynamics f
 
 ## Installation and Requirements
 
-Astrochem dependencies are given in the astrochem wiki, while chemdiff dependencies include openmpi and mpi4py. Recommended installation is using conda to create a virtual environment with all dependencies. A new environment can be created with all needed dependencies with
+Astrochem dependencies are given in the astrochem wiki, while chemdiff dependencies include openmpi and mpi4py. Recommended installation is using conda to create a virtual environment with all dependencies.
+Note that since candy was first created (2021), there have been a number of
+breaking changes to many of these libraries! The following pinned libraries will
+ensure proper installation with this version of astrochem. Check the [Astrochem
+Wiki](https://www.sebastienmaret.net/astrochem/) for the most up-to-date
+installation requirements.
+A new environment can be created with all needed dependencies with
 
-	conda create --name newcandy -c conda-forge sundials=5.7.0 python cython numpy matplotlib h5py autoconf automake libtool mpi4py openmpi
+	conda create --name newcandy -c conda-forge python=3.11 "numpy<2" "cython<3" sundials=5.7.0 "hdf5=1.12" matplotlib h5py setuptools autoconf automake libtool mpi4py openmpi
 
 Active the enviornment with
 
@@ -59,6 +65,8 @@ To compile Astrochem run the following commands *from the Astrochem subdirectory
 	make install
 
 Because candy.py is run from the parent directory, there is no need to adjust your python path!
+
+(Installation has been tested as of 10/2026 on Apple Mac Silicon)
 
 ## Quickstart
 
