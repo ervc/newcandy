@@ -114,6 +114,17 @@ Pebble compositions are stored normalized to the column density of hydrogen, wit
 
 from the command line. This will start the run using abundances from outputs ending in `_t8` at the time `touts[8]`
 
+## Parallel Runs
+
+By default, CANDY will use all cores available to run in parallel. This is done
+by splitting the cells within a column between cores and running chemistry
+independently. For example, an 8 core machine will
+have up to 8 subprocesses running astrochem at a time. Cells are assigned to
+cores as they become available. In theory this is more efficient than simply
+distributing cells evenly among the cores, but may result in many cores waiting
+for the last processes to finish. Diffusion is done entirely on one core.
+Future implementations will allow to set maximum cores.
+
 ## Input parameters
 
 Input files for CANDY are split into three sections: model inputs `[model]` which controls solver parameters, physical inputs `[phys]` which sets the relevent physical values for chemistry, and the molecular abundances `[abundances]`, which sets the intial abundances of each chemical species in the cells.
